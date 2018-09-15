@@ -1,6 +1,10 @@
 # MMLP Overview
 
-https://intranet.oreilly.com/confluence/pages/viewpage.action?pageId=37031556
+- [Learning path setup documentation](https://intranet.oreilly.com/confluence/pages/viewpage.action?pageId=37031556)
+- http://rubaxa.github.io/Sortable/ -- sortable list react widget
+- [O'Reilly design system](https://design-system.corp.oreilly.com/getting-started/developers)
+- [Medium article on redux](https://medium.com/@tilomitra/building-server-rendered-react-apps-with-nextjs-40313e978cb4)
+- [create-next-app tool](https://github.com/segmentio/create-next-app)
 
 # Search For a Work
 
