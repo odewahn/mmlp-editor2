@@ -14,7 +14,7 @@ export default () => (
     <Grid>
       <Row>
         <Column col={{ medium: 8 }}>
-          <Modal open={true}>
+          <div>
             <SearchBar
               ariaHidden={true}
               inputLabel="Search"
@@ -22,7 +22,7 @@ export default () => (
               onChange={() => console.log("onChange")}
               onSearch={() => console.log("onSearch")}
             />
-          </Modal>
+          </div>
         </Column>
         <Column col={{ medium: 4 }}>
           <p>

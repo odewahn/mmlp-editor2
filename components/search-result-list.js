@@ -4,9 +4,9 @@ import SearchResult from "./search-result";
 export default class SearchResultList extends React.Component {
   render() {
     return (
-      <ul>
+      <div style={{ align: "left" }}>
         {this.props.results.map(result => <SearchResult item={result} />)}
-      </ul>
+      </div>
     );
   }
 }

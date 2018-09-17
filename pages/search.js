@@ -46,6 +46,7 @@ class Page extends React.Component {
       })
     );
     const json = await res.json();
+    console.log(json.results);
     this.setState({ results: json, spinning: false });
   };
 
