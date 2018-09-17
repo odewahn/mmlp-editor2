@@ -3,18 +3,22 @@ import fetch from "isomorphic-unfetch";
 
 import Head from "../components/head";
 import SearchBar from "@oreillymedia/design-system/SearchBar";
-import { Grid, Row, Column } from "@oreillymedia/design-system/Grid";
+import { TabGroup, Tab } from "@oreillymedia/design-system/TabGroup";
+import Modal from "@oreillymedia/design-system/Modal";
+
 import SearchResultList from "../components/search-result-list";
 
 class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeSearchTab: 0,
       results: {
         results: []
       },
       query: "",
-      spinning: false
+      spinning: false,
+      selectedItem: {}
     };
   }
 
@@ -52,29 +56,30 @@ class Page extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <Head title="Home" />
-          <Grid>
-            <Row>
-              <Column col={{ medium: 8 }}>
-                <SearchBar
-                  variant="slim"
-                  ariaHidden={true}
-                  inputLabel="Search"
-                  placeholder="Find you some content"
-                  onAutocomplete={e => this.handleChange("query", e)}
-                  onChange={() => console.log("Doin it!")}
-                  onSearch={() => this.performSearch()}
-                />
-                {this.state.spinning ? <p>Searching...</p> : null}
-              </Column>
-            </Row>
+      <Modal open={true}>
+        <Head title="Home" />
+        <TabGroup
+          activeTab={this.state.activeSearchTab}
+          onTabChange={i => this.setState({ activeSearchTab: i })}
+        >
+          <Tab title="Select Work" onClick={() => console.log("Doin it!")}>
+            <SearchBar
+              variant="slim"
+              ariaHidden={true}
+              inputLabel="Search"
+              placeholder="Select a work"
+              onAutocomplete={e => this.handleChange("query", e)}
+              onChange={() => console.log("Doin it!")}
+              onSearch={() => this.performSearch()}
+            />
+            {this.state.spinning ? <p>Searching...</p> : null}
             <SearchResultList results={this.state.results["results"]} />
-            <Row />
-          </Grid>
-        </div>
-      </div>
+          </Tab>
+          <Tab title="Select segment">
+            <p>Search more in here</p>
+          </Tab>
+        </TabGroup>
+      </Modal>
     );
   }
 }
