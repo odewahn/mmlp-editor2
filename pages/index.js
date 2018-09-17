@@ -1,42 +1,103 @@
+import React from "react";
+import fetch from "isomorphic-unfetch";
+import buildUrl from "build-url";
+
 import Head from "../components/head";
-import Nav from "../components/nav";
-
-import SearchBar from "@oreillymedia/design-system/SearchBar";
-import Button from "@oreillymedia/design-system/Button";
 import Modal from "@oreillymedia/design-system/Modal";
-import Footer from "@oreillymedia/design-system/AnonymousFooter";
+import Card from "@oreillymedia/design-system/Card";
+import CardGroup from "@oreillymedia/design-system/CardGroup";
+import SearchBar from "@oreillymedia/design-system/SearchBar";
+import { TabGroup, Tab } from "@oreillymedia/design-system/TabGroup";
 
-import { Grid, Row, Column } from "@oreillymedia/design-system/Grid";
+class SearchResult extends React.Component {
+  render() {
+    return (
+      <CardGroup>
+        <div
+          key={this.props.item.isbn}
+          onClick={() => {
+            console.log("They clicked", this.props.item.isbn);
+          }}
+        >
+          <Card
+            label={this.props.item.format}
+            iconLabel={this.props.item.format}
+            title={this.props.item.title}
+            authors={this.props.item.authors}
+            level={3}
+          />
+        </div>
+      </CardGroup>
+    );
+  }
+}
 
-export default () => (
-  <div>
-    <Head title="Home" />
-    <Grid>
-      <Row>
-        <Column col={{ medium: 8 }}>
-          <div>
+class SearchResultList extends React.Component {
+  render() {
+    return (
+      <div style={{ align: "left" }}>
+        {this.props.results.map(result => <SearchResult item={result} />)}
+      </div>
+    );
+  }
+}
+
+export default class Page extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeSearchTab: 0,
+      results: {
+        results: []
+      },
+      query: "",
+      spinning: false,
+      selectedItem: {}
+    };
+  }
+
+  handleChange(k, v) {
+    this.setState({ [k]: v });
+  }
+
+  performSearch = async e => {
+    this.setState({ spinning: true });
+    const res = await fetch(
+      buildUrl("https://falcon.sfo.safaribooks.com/api/v2/search/", {
+        query: this.state.query
+      })
+    );
+    const json = await res.json();
+    console.log(json.results);
+    this.setState({ results: json, spinning: false });
+  };
+
+  render() {
+    return (
+      <Modal open={true}>
+        <Head title="Home" />
+        <TabGroup
+          activeTab={this.state.activeSearchTab}
+          onTabChange={i => this.setState({ activeSearchTab: i })}
+        >
+          <Tab title="Select Work" onClick={() => console.log("Doin it!")}>
             <SearchBar
+              variant="slim"
               ariaHidden={true}
               inputLabel="Search"
-              placeholder="Find you some content"
-              onChange={() => console.log("onChange")}
-              onSearch={() => console.log("onSearch")}
+              placeholder="Select a work"
+              onAutocomplete={e => this.handleChange("query", e)}
+              onChange={() => console.log("Doin it!")}
+              onSearch={() => this.performSearch()}
             />
-          </div>
-        </Column>
-        <Column col={{ medium: 4 }}>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum. !
-          </p>
-        </Column>
-      </Row>
-    </Grid>
-    <Footer />
-  </div>
-);
+            {this.state.spinning ? <p>Searching...</p> : null}
+            <SearchResultList results={this.state.results["results"]} />
+          </Tab>
+          <Tab title="Select segment">
+            <p>Search more in here</p>
+          </Tab>
+        </TabGroup>
+      </Modal>
+    );
+  }
+}
