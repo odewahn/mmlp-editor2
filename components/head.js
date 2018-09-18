@@ -17,6 +17,7 @@ const Head = props => (
 
     <link rel="stylesheet" type="text/css" href="/static/base.css" />
     <link rel="stylesheet" type="text/css" href="/static/components.css" />
+    <link rel="stylesheet" type="text/css" href="/static/mdc.list.min.css" />
 
     <meta property="og:url" content={props.url || defaultOGURL} />
     <meta property="og:title" content={props.title || ""} />
