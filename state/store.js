@@ -15,7 +15,7 @@ const ReduxStore = combineReducers({
 export const initializeStore = () => {
   return createStore(
     ReduxStore,
-    {},
+    { Search: { results: [] } },
     composeWithDevTools(applyMiddleware(thunkMiddleware))
   );
 };
