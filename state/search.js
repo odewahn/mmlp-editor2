@@ -1,17 +1,21 @@
-export const initialState = {
-  obscure: "ZORG"
+/*********************************************************************
+||  Define the initial state
+*********************************************************************/
+export const INITIAL_STATE = {
+  results: [],
+  query: "",
+  spinning: false
 };
 
 /*********************************************************************
 ||  Reducer
 *********************************************************************/
-
-export const SearchReducer = (state, action) => {
+export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     default:
-      return initialState;
+      return INITIAL_STATE;
   }
-};
+}
 
 /*********************************************************************
 ||  Actions

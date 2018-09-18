@@ -1,3 +1,4 @@
+// See https://github.com/zeit/next.js/tree/master/examples/with-redux
 import React from "react";
 import { initializeStore } from "../store";
 

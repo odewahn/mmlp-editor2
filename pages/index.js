@@ -1,8 +1,6 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
 import buildUrl from "build-url";
-
-import { initStore } from "../store";
 import { connect } from "react-redux";
 
 import Head from "../components/head";
@@ -56,66 +54,68 @@ class SearchResultList extends React.Component {
   }
 }
 
-class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      results: {
-        results: []
-      },
-      query: "",
-      spinning: false
+export default connect(state => state)(
+  class Page extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        results: {
+          results: []
+        },
+        query: "",
+        spinning: false
+      };
+    }
+
+    handleChange(k, v) {
+      this.setState({ [k]: v });
+    }
+
+    performSearch = async e => {
+      this.setState({ spinning: true });
+
+      const res = await fetch(
+        buildUrl("https://falcon.sfo.safaribooks.com", {
+          path: "/api/v2/search/",
+          queryParams: {
+            query: this.state.query
+          }
+        })
+      );
+      const json = await res.json();
+      console.log(json.results);
+      this.setState({ results: json, spinning: false });
     };
+
+    render() {
+      console.log(this.props);
+      return (
+        <Modal open={true}>
+          <Head title="Home" />
+          <TabGroup
+            activeTab={this.state.activeSearchTab}
+            onTabChange={i => this.setState({ activeSearchTab: i })}
+          >
+            <Tab title="Select Work" onClick={() => console.log("Doin it!")}>
+              <SearchBar
+                variant="slim"
+                ariaHidden={true}
+                inputLabel="Search"
+                placeholder="Select a work"
+                onAutocomplete={e => this.handleChange("query", e)}
+                onSearch={() => this.performSearch()}
+              />
+              {this.state.spinning ? <p>Searching...</p> : null}
+              <SearchResultList results={this.state.results["results"]} />
+            </Tab>
+            <Tab title="Select segment">
+              <p>Search more in here</p>
+            </Tab>
+          </TabGroup>
+        </Modal>
+      );
+    }
   }
+);
 
-  handleChange(k, v) {
-    this.setState({ [k]: v });
-  }
-
-  performSearch = async e => {
-    this.setState({ spinning: true });
-
-    const res = await fetch(
-      buildUrl("https://falcon.sfo.safaribooks.com", {
-        path: "/api/v2/search/",
-        queryParams: {
-          query: this.state.query
-        }
-      })
-    );
-    const json = await res.json();
-    console.log(json.results);
-    this.setState({ results: json, spinning: false });
-  };
-
-  render() {
-    console.log(this.props);
-    return (
-      <Modal open={true}>
-        <Head title="Home" />
-        <TabGroup
-          activeTab={this.state.activeSearchTab}
-          onTabChange={i => this.setState({ activeSearchTab: i })}
-        >
-          <Tab title="Select Work" onClick={() => console.log("Doin it!")}>
-            <SearchBar
-              variant="slim"
-              ariaHidden={true}
-              inputLabel="Search"
-              placeholder="Select a work"
-              onAutocomplete={e => this.handleChange("query", e)}
-              onSearch={() => this.performSearch()}
-            />
-            {this.state.spinning ? <p>Searching...</p> : null}
-            <SearchResultList results={this.state.results["results"]} />
-          </Tab>
-          <Tab title="Select segment">
-            <p>Search more in here</p>
-          </Tab>
-        </TabGroup>
-      </Modal>
-    );
-  }
-}
-
-export default connect(state => state)(Page);
+//export default connect(state => state)(Page);
