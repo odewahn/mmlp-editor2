@@ -1,10 +1,13 @@
 /*********************************************************************
 ||  Define the initial state
 *********************************************************************/
+
 export const INITIAL_STATE = {
-  results: [],
   query: "",
-  spinning: false
+  results: [],
+  spinning: false,
+  selectedItem: {},
+  activeTab: 0
 };
 
 /*********************************************************************
@@ -12,6 +15,8 @@ export const INITIAL_STATE = {
 *********************************************************************/
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case "setSearchField":
+      return Object.assign({}, state, { [action.key]: action.val });
     default:
       return INITIAL_STATE;
   }
@@ -20,3 +25,20 @@ export default function(state = INITIAL_STATE, action) {
 /*********************************************************************
 ||  Actions
 *********************************************************************/
+// Leave this unexported so that nothing can call it directly
+// Leave this unexported so that nothing can call it directly
+function setSearchField(key, val) {
+  return { type: "setSearchField", key: key, val: val };
+}
+
+export function setQueryTerm(val) {
+  return dispatch => {
+    dispatch(setSearchField("query", val));
+  };
+}
+
+export function setActiveTab(val) {
+  return dispatch => {
+    dispatch(setSearchField("activeTab", val));
+  };
+}

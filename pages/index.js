@@ -11,6 +11,9 @@ import SearchBar from "@oreillymedia/design-system/SearchBar";
 import { TabGroup, Tab } from "@oreillymedia/design-system/TabGroup";
 import Icon from "@oreillymedia/design-system/Icon";
 
+// Imported Actions
+import { setQueryTerm, setActiveTab } from "../state/search";
+
 class SearchResult extends React.Component {
   render() {
     return (
@@ -68,6 +71,7 @@ export default connect(state => state)(
     }
 
     handleChange(k, v) {
+      this.props.dispatch(setQueryTerm(v));
       this.setState({ [k]: v });
     }
 
@@ -93,8 +97,8 @@ export default connect(state => state)(
         <Modal open={true}>
           <Head title="Home" />
           <TabGroup
-            activeTab={this.state.activeSearchTab}
-            onTabChange={i => this.setState({ activeSearchTab: i })}
+            activeTab={this.props.Search.activeTab}
+            onTabChange={i => this.props.dispatch(setActiveTab(i))}
           >
             <Tab title="Select Work" onClick={() => console.log("Doin it!")}>
               <SearchBar
