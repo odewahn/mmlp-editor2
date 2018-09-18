@@ -12,46 +12,44 @@ import { TabGroup, Tab } from "@oreillymedia/design-system/TabGroup";
 import Icon from "@oreillymedia/design-system/Icon";
 
 // Imported Actions
-import { setQueryTerm, setActiveTab } from "../state/search";
-
-class SearchResult extends React.Component {
-  render() {
-    return (
-      <li
-        className="mdc-list-item mdc-ripple-upgraded"
-        onClick={() => {
-          console.log("They clicked", this.props.item.isbn);
-        }}
-      >
-        <span
-          className="mdc-list-item__graphic material-icons"
-          aria-hidden="true"
-        >
-          <Icon size={56} name={this.props.item.format} />
-        </span>
-        <span className="mdc-list-item__text">
-          <span className="mdc-list-item__primary-text">
-            {this.props.item.title}
-          </span>
-          <span className="mdc-list-item__secondary-text">
-            {this.props.item.authors
-              ? this.props.item.authors.join(", ")
-              : null}
-          </span>
-        </span>
-        <span className="mdc-list-item__meta material-icons" aria-hidden="true">
-          <Icon name="chevron-right" />
-        </span>
-      </li>
-    );
-  }
-}
+import {
+  setSearchResults,
+  setActiveTab,
+  setSelectedItem
+} from "../state/search";
 
 class SearchResultList extends React.Component {
   render() {
     return (
       <ul className="mdc-list demo-list mdc-list--two-line mdc-list--avatar-list">
-        {this.props.results.map(result => <SearchResult item={result} />)}
+        {this.props.results.map(item => (
+          <li
+            className="mdc-list-item mdc-ripple-upgraded"
+            onClick={() => {
+              this.props.dispatch(setSelectedItem(item));
+              this.props.dispatch(setActiveTab(1));
+            }}
+          >
+            <span
+              className="mdc-list-item__graphic material-icons"
+              aria-hidden="true"
+            >
+              <Icon size={56} name={item.format} />
+            </span>
+            <span className="mdc-list-item__text">
+              <span className="mdc-list-item__primary-text">{item.title}</span>
+              <span className="mdc-list-item__secondary-text">
+                {item.authors ? item.authors.join(", ") : null}
+              </span>
+            </span>
+            <span
+              className="mdc-list-item__meta material-icons"
+              aria-hidden="true"
+            >
+              <Icon name="chevron-right" />
+            </span>
+          </li>
+        ))}
       </ul>
     );
   }
@@ -62,16 +60,12 @@ export default connect(state => state)(
     constructor(props) {
       super(props);
       this.state = {
-        results: {
-          results: []
-        },
         query: "",
         spinning: false
       };
     }
 
     handleChange(k, v) {
-      this.props.dispatch(setQueryTerm(v));
       this.setState({ [k]: v });
     }
 
@@ -87,12 +81,11 @@ export default connect(state => state)(
         })
       );
       const json = await res.json();
-      console.log(json.results);
-      this.setState({ results: json, spinning: false });
+      this.props.dispatch(setSearchResults(json));
+      this.setState({ spinning: false });
     };
 
     render() {
-      console.log(this.props);
       return (
         <Modal open={true}>
           <Head title="Home" />
@@ -110,10 +103,17 @@ export default connect(state => state)(
                 onSearch={() => this.performSearch()}
               />
               {this.state.spinning ? <p>Searching...</p> : null}
-              <SearchResultList results={this.state.results["results"]} />
+              <SearchResultList
+                results={
+                  "results" in this.props.Search.results
+                    ? this.props.Search.results["results"]
+                    : []
+                }
+                {...this.props}
+              />
             </Tab>
             <Tab title="Select segment">
-              <p>Search more in here</p>
+              <p>{this.props.Search.selectedItem["title"]}</p>
             </Tab>
           </TabGroup>
         </Modal>
@@ -121,5 +121,3 @@ export default connect(state => state)(
     }
   }
 );
-
-//export default connect(state => state)(Page);

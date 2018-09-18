@@ -3,9 +3,7 @@
 *********************************************************************/
 
 export const INITIAL_STATE = {
-  query: "",
   results: [],
-  spinning: false,
   selectedItem: {},
   activeTab: 0
 };
@@ -31,9 +29,15 @@ function setSearchField(key, val) {
   return { type: "setSearchField", key: key, val: val };
 }
 
-export function setQueryTerm(val) {
+export function setSearchResults(val) {
   return dispatch => {
-    dispatch(setSearchField("query", val));
+    dispatch(setSearchField("results", val));
+  };
+}
+
+export function setSelectedItem(val) {
+  return dispatch => {
+    dispatch(setSearchField("selectedItem", val));
   };
 }
 
