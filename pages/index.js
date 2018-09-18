@@ -2,6 +2,9 @@ import React from "react";
 import fetch from "isomorphic-unfetch";
 import buildUrl from "build-url";
 
+import { initStore } from "../store";
+import { connect } from "react-redux";
+
 import Head from "../components/head";
 import Modal from "@oreillymedia/design-system/Modal";
 import Card from "@oreillymedia/design-system/Card";
@@ -30,7 +33,9 @@ class SearchResult extends React.Component {
             {this.props.item.title}
           </span>
           <span className="mdc-list-item__secondary-text">
-            {this.props.item.authors.join(", ")}
+            {this.props.item.authors
+              ? this.props.item.authors.join(", ")
+              : null}
           </span>
         </span>
         <span className="mdc-list-item__meta material-icons" aria-hidden="true">
@@ -51,17 +56,15 @@ class SearchResultList extends React.Component {
   }
 }
 
-export default class Page extends React.Component {
+class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeSearchTab: 0,
       results: {
         results: []
       },
       query: "",
-      spinning: false,
-      selectedItem: {}
+      spinning: false
     };
   }
 
@@ -86,10 +89,10 @@ export default class Page extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <Modal open={true}>
         <Head title="Home" />
-        <div />
         <TabGroup
           activeTab={this.state.activeSearchTab}
           onTabChange={i => this.setState({ activeSearchTab: i })}
@@ -101,7 +104,6 @@ export default class Page extends React.Component {
               inputLabel="Search"
               placeholder="Select a work"
               onAutocomplete={e => this.handleChange("query", e)}
-              onChange={() => console.log("Doin it!")}
               onSearch={() => this.performSearch()}
             />
             {this.state.spinning ? <p>Searching...</p> : null}
@@ -115,3 +117,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+export default connect(state => state)(Page);
