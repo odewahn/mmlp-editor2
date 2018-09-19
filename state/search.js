@@ -1,11 +1,16 @@
+import buildUrl from "build-url";
+import fetch from "isomorphic-unfetch";
+
 /*********************************************************************
 ||  Define the initial state
 *********************************************************************/
 
 export const INITIAL_STATE = {
   results: [],
+  sitb_results: [],
   selectedItem: {},
-  activeTab: 0
+  activeTab: 0,
+  sitbSpinner: false
 };
 
 /*********************************************************************
@@ -24,7 +29,6 @@ export default function(state = INITIAL_STATE, action) {
 ||  Actions
 *********************************************************************/
 // Leave this unexported so that nothing can call it directly
-// Leave this unexported so that nothing can call it directly
 function setSearchField(key, val) {
   return { type: "setSearchField", key: key, val: val };
 }
@@ -35,14 +39,46 @@ export function setSearchResults(val) {
   };
 }
 
+export function setSITBResults(val) {
+  return dispatch => {
+    dispatch(setSearchField("sitb_results", val));
+  };
+}
 export function setSelectedItem(val) {
   return dispatch => {
     dispatch(setSearchField("selectedItem", val));
+    dispatch(setSITBResults([]));
+    dispatch(
+      fetchSITB({
+        identifier: val.isbn,
+        query: "*"
+      })
+    );
   };
 }
 
 export function setActiveTab(val) {
   return dispatch => {
     dispatch(setSearchField("activeTab", val));
+  };
+}
+
+export function fetchSITB(query) {
+  return (dispatch, getState) => {
+    dispatch(setSearchField("sitbSpinner", true));
+    return fetch(
+      buildUrl("https://falcon.sfo.safaribooks.com", {
+        path: "/api/v2/sitb/",
+        queryParams: query
+      })
+    )
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        console.log(json);
+        dispatch(setSearchField("sitbSpinner", false));
+        dispatch(setSITBResults(json));
+      });
   };
 }

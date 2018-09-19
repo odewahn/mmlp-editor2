@@ -8,6 +8,7 @@ import Modal from "@oreillymedia/design-system/Modal";
 import { TabGroup, Tab } from "@oreillymedia/design-system/TabGroup";
 
 import SearchWork from "../components/search-work";
+import SITB from "../components/search-inside-the-book";
 
 // Imported Actions
 import {
@@ -22,7 +23,6 @@ export default connect(state => state)(
       return (
         <Modal open={true}>
           <Head title="Home" />
-
           <TabGroup
             activeTab={this.props.Search.activeTab}
             onTabChange={i => this.props.dispatch(setActiveTab(i))}
@@ -31,7 +31,7 @@ export default connect(state => state)(
               <SearchWork {...this.props} />
             </Tab>
             <Tab title="Select segment">
-              <p>{this.props.Search.selectedItem["title"]}</p>
+              <SITB {...this.props} />
             </Tab>
           </TabGroup>
         </Modal>
