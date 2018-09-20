@@ -86,7 +86,6 @@ function fetchFromAPI(base, path, query, onSuccess, onFailure) {
       })
     )
       .then(response => {
-        console.log(response);
         if (!response.ok) {
           throw response;
         }
@@ -96,7 +95,18 @@ function fetchFromAPI(base, path, query, onSuccess, onFailure) {
         onSuccess(data);
       })
       .catch(err => {
-        onFailure(err);
+        var msg;
+        if (err.statusText) {
+          msg =
+            "An error code " +
+            err.status +
+            " (" +
+            err.statusText +
+            ") has occurred";
+        } else {
+          msg = "An error occurred: " + err;
+        }
+        onFailure(msg);
       });
   };
 }
