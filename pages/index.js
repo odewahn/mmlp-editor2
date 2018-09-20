@@ -24,7 +24,7 @@ export default connect(state => state)(
         <Modal open={true}>
           <Head title="Home" />
           <TabGroup
-            activeTab={this.props.Search.activeTab}
+            activeTab={this.props.activeTab}
             onTabChange={i => this.props.dispatch(setActiveTab(i))}
           >
             <Tab title="Select Work">

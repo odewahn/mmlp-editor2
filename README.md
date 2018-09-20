@@ -5,6 +5,15 @@
 - [O'Reilly design system](https://design-system.corp.oreilly.com/getting-started/developers)
 - [Medium article on redux](https://medium.com/@tilomitra/building-server-rendered-react-apps-with-nextjs-40313e978cb4)
 - [create-next-app tool](https://github.com/segmentio/create-next-app)
+- [Video clips content API](https://github.com/safarijv/video-client/blob/master/src/api/contents.js)
+
+# Authentication
+
+This is lame, but you first have to get a session token from
+
+https://http.howard.svc.dev-seb.local/
+
+https://http.videometadataservice.svc.prod-sfo.local/api/v1/
 
 # Search For a Work
 

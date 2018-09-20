@@ -1,5 +1,5 @@
 import buildUrl from "build-url";
-import fetch from "isomorphic-unfetch";
+import "isomorphic-unfetch";
 
 /*********************************************************************
 ||  Define the initial state
@@ -10,7 +10,8 @@ export const INITIAL_STATE = {
   sitb_results: [],
   selectedItem: {},
   activeTab: 0,
-  sitbSpinner: false
+  sitbSpinner: false,
+  segments: []
 };
 
 /*********************************************************************
@@ -63,21 +64,82 @@ export function setActiveTab(val) {
   };
 }
 
-export function fetchSITB(query) {
+export function addSegment(val) {
   return (dispatch, getState) => {
-    dispatch(setSearchField("sitbSpinner", true));
-    return fetch(
-      buildUrl("https://falcon.sfo.safaribooks.com", {
-        path: "/api/v2/sitb/",
+    const x = getState().segments;
+    x.push(val);
+    dispatch(setSearchField("segments", x));
+  };
+}
+
+// This is a private wrapper function that handles the error scenarios
+// for fetch so that you can properly handle errors
+// If expects the 3 functions -- one to do the actual fetch, a success handler
+// and a failure handler
+
+function fetchFromAPI(base, path, query, onSuccess, onFailure) {
+  return (dispatch, getState) => {
+    fetch(
+      buildUrl(base, {
+        path: path,
         queryParams: query
       })
     )
       .then(response => {
+        console.log(response);
+        if (!response.ok) {
+          throw response;
+        }
         return response.json();
       })
-      .then(json => {
-        dispatch(setSearchField("sitbSpinner", false));
-        dispatch(setSITBResults(json));
+      .then(data => {
+        onSuccess(data);
+      })
+      .catch(err => {
+        onFailure(err);
       });
+  };
+}
+
+export function fetchSITB(query) {
+  return (dispatch, getState) => {
+    dispatch(setSearchField("sitbSpinner", true));
+    dispatch(
+      fetchFromAPI(
+        "https://falcon.sfo.safaribooks.com",
+        "/api/v2/sitb/",
+        query,
+        json => {
+          dispatch(setSearchField("sitbSpinner", false));
+          dispatch(setSITBResults(json));
+          console.log("got results!", json);
+        },
+        msg => {
+          dispatch(setSearchField("sitbSpinner", false));
+          console.log("Oh no!", msg);
+        }
+      )
+    );
+  };
+}
+
+export function fetchWorks(query) {
+  return (dispatch, getState) => {
+    dispatch(setSearchField("sitbSpinner", true));
+    dispatch(
+      fetchFromAPI(
+        "https://falcon.sfo.safaribooks.com",
+        "/api/v2/search/",
+        query,
+        json => {
+          dispatch(setSearchField("sitbSpinner", false));
+          dispatch(setSearchResults(json));
+        },
+        err => {
+          dispatch(setSearchField("sitbSpinner", false));
+          console.log("Oh no!", err);
+        }
+      )
+    );
   };
 }

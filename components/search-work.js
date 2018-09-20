@@ -10,7 +10,8 @@ import Icon from "@oreillymedia/design-system/Icon";
 import {
   setSearchResults,
   setActiveTab,
-  setSelectedItem
+  setSelectedItem,
+  fetchWorks
 } from "../state/search";
 
 function safeIterator(x) {
@@ -21,7 +22,7 @@ class SearchResultList extends React.Component {
   render() {
     return (
       <ul className="mdc-list demo-list mdc-list--two-line mdc-list--avatar-list">
-        {safeIterator(this.props.Search.results["results"]).map((item, idx) => (
+        {safeIterator(this.props.results["results"]).map((item, idx) => (
           <li
             key={item.isbn + "-" + idx}
             className="mdc-list-item mdc-ripple-upgraded"
@@ -70,6 +71,7 @@ export default connect(state => state)(
     }
 
     performSearch = async e => {
+      /*
       this.setState({ spinning: true });
 
       const res = await fetch(
@@ -83,6 +85,12 @@ export default connect(state => state)(
       const json = await res.json();
       this.props.dispatch(setSearchResults(json));
       this.setState({ spinning: false });
+      */
+      this.props.dispatch(
+        fetchWorks({
+          query: this.state.query
+        })
+      );
     };
 
     render() {
@@ -98,7 +106,7 @@ export default connect(state => state)(
           />
           {this.state.spinning ? <p>Searching...</p> : null}
           <SearchResultList
-            results={this.props.Search.results["results"]}
+            results={this.props.results["results"]}
             {...this.props}
           />
         </div>
