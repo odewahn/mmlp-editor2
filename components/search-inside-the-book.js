@@ -12,6 +12,8 @@ import {
   fetchSITB
 } from "../state/search";
 
+import { addSegment } from "../state/learning-path";
+
 function safeIterator(x) {
   return x ? x : [];
 }
@@ -20,37 +22,38 @@ class SITBResultList extends React.Component {
   render() {
     return (
       <ul className="mdc-list demo-list mdc-list--two-line mdc-list--avatar-list">
-        {safeIterator(this.props.Search.sitb_results["results"]).map(item => (
-          <li
-            className="mdc-list-item mdc-ripple-upgraded"
-            onClick={() => {
-              //this.props.dispatch(setSelectedItem(item));
-              //this.props.dispatch(setActiveTab(1));
-              console.log(item);
-            }}
-          >
-            <span
-              className="mdc-list-item__graphic material-icons"
-              aria-hidden="true"
+        {safeIterator(this.props.Search.sitb_results["results"]).map(
+          (item, idx) => (
+            <li
+              key={item.isbn + "-" + idx}
+              className="mdc-list-item mdc-ripple-upgraded"
+              onClick={() => {
+                this.props.dispatch(addSegment(item));
+              }}
             >
-              <Icon size={56} name="topics" />
-            </span>
-            <span className="mdc-list-item__text">
-              <span className="mdc-list-item__primary-text">
-                {item.chapter_title}
+              <span
+                className="mdc-list-item__graphic material-icons"
+                aria-hidden="true"
+              >
+                <Icon size={56} name="topics" />
               </span>
-              <span className="mdc-list-item__secondary-text">
-                {item.title}
+              <span className="mdc-list-item__text">
+                <span className="mdc-list-item__primary-text">
+                  {item.chapter_title}
+                </span>
+                <span className="mdc-list-item__secondary-text">
+                  {item.title}
+                </span>
               </span>
-            </span>
-            <span
-              className="mdc-list-item__meta material-icons"
-              aria-hidden="true"
-            >
-              <Icon size={36} name="add-plus" />
-            </span>
-          </li>
-        ))}
+              <span
+                className="mdc-list-item__meta material-icons"
+                aria-hidden="true"
+              >
+                <Icon size={36} name="add-plus" />
+              </span>
+            </li>
+          )
+        )}
       </ul>
     );
   }

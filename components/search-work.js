@@ -21,8 +21,9 @@ class SearchResultList extends React.Component {
   render() {
     return (
       <ul className="mdc-list demo-list mdc-list--two-line mdc-list--avatar-list">
-        {safeIterator(this.props.Search.results["results"]).map(item => (
+        {safeIterator(this.props.Search.results["results"]).map((item, idx) => (
           <li
+            key={item.isbn + "-" + idx}
             className="mdc-list-item mdc-ripple-upgraded"
             onClick={() => {
               this.props.dispatch(setSelectedItem(item));

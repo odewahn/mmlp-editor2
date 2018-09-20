@@ -76,7 +76,6 @@ export function fetchSITB(query) {
         return response.json();
       })
       .then(json => {
-        console.log(json);
         dispatch(setSearchField("sitbSpinner", false));
         dispatch(setSITBResults(json));
       });
