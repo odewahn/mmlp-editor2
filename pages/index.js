@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 import Head from "../components/head";
 import Modal from "@oreillymedia/design-system/Modal";
+import Notification from "@oreillymedia/design-system/Modal";
 import { TabGroup, Tab } from "@oreillymedia/design-system/TabGroup";
 
 import SearchWork from "../components/search-work";
@@ -14,15 +15,25 @@ import SITB from "../components/search-inside-the-book";
 import {
   setSearchResults,
   setActiveTab,
-  setSelectedItem
+  setSelectedItem,
+  clearErrorMessage
 } from "../state/search";
 
 export default connect(state => state)(
   class Page extends React.Component {
     render() {
       return (
-        <Modal open={true}>
+        <div>
           <Head title="Home" />
+          <Notification
+            icon="warning-bang"
+            open={this.props.errorMessage ? true : false}
+            onClose={() => {
+              this.props.dispatch(clearErrorMessage());
+            }}
+          >
+            {this.props.errorMessage}
+          </Notification>
           <TabGroup
             activeTab={this.props.activeTab}
             onTabChange={i => this.props.dispatch(setActiveTab(i))}
@@ -34,7 +45,7 @@ export default connect(state => state)(
               <SITB {...this.props} />
             </Tab>
           </TabGroup>
-        </Modal>
+        </div>
       );
     }
   }

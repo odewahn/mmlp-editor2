@@ -11,7 +11,8 @@ import {
   setSearchResults,
   setActiveTab,
   setSelectedItem,
-  fetchWorks
+  fetchWorks,
+  setErrorMessage
 } from "../state/search";
 
 function safeIterator(x) {
@@ -71,21 +72,6 @@ export default connect(state => state)(
     }
 
     performSearch = async e => {
-      /*
-      this.setState({ spinning: true });
-
-      const res = await fetch(
-        buildUrl("https://falcon.sfo.safaribooks.com", {
-          path: "/api/v2/search/",
-          queryParams: {
-            query: this.state.query
-          }
-        })
-      );
-      const json = await res.json();
-      this.props.dispatch(setSearchResults(json));
-      this.setState({ spinning: false });
-      */
       this.props.dispatch(
         fetchWorks({
           query: this.state.query

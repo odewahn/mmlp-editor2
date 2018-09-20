@@ -7,11 +7,12 @@ import "isomorphic-unfetch";
 
 export const INITIAL_STATE = {
   results: [],
-  sitb_results: [],
   selectedItem: {},
   activeTab: 0,
   sitbSpinner: false,
-  segments: []
+  sitb_results: [],
+  segments: [],
+  errorMessage: null
 };
 
 /*********************************************************************
@@ -30,7 +31,7 @@ export default function(state = INITIAL_STATE, action) {
 ||  Actions
 *********************************************************************/
 // Leave this unexported so that nothing can call it directly
-function setSearchField(key, val) {
+export function setSearchField(key, val) {
   return { type: "setSearchField", key: key, val: val };
 }
 
@@ -45,6 +46,7 @@ export function setSITBResults(val) {
     dispatch(setSearchField("sitb_results", val));
   };
 }
+
 export function setSelectedItem(val) {
   return dispatch => {
     dispatch(setSearchField("selectedItem", val));
@@ -64,20 +66,37 @@ export function setActiveTab(val) {
   };
 }
 
+export function clearErrorMessage() {
+  return dispatch => {
+    dispatch(setSearchField("errorMessage", null));
+  };
+}
+
 export function addSegment(val) {
   return (dispatch, getState) => {
     const x = getState().segments;
     x.push(val);
     dispatch(setSearchField("segments", x));
+    console.log(val);
   };
+}
+
+export function segmentInSelectedSegments(s, segments) {
+  var key = s.natural_key.join("-");
+  var retVal = false;
+  segments.map(segment => {
+    if (key == segment.natural_key.join("-")) {
+      retVal = true;
+    }
+  });
+  return retVal;
 }
 
 // This is a private wrapper function that handles the error scenarios
 // for fetch so that you can properly handle errors
 // If expects the 3 functions -- one to do the actual fetch, a success handler
 // and a failure handler
-
-function fetchFromAPI(base, path, query, onSuccess, onFailure) {
+export function fetchFromAPI(base, path, query, onSuccess, onFailure) {
   return (dispatch, getState) => {
     fetch(
       buildUrl(base, {
@@ -122,11 +141,10 @@ export function fetchSITB(query) {
         json => {
           dispatch(setSearchField("sitbSpinner", false));
           dispatch(setSITBResults(json));
-          console.log("got results!", json);
         },
-        msg => {
+        err => {
           dispatch(setSearchField("sitbSpinner", false));
-          console.log("Oh no!", msg);
+          dispatch(setSearchField("errorMessage", err));
         }
       )
     );
@@ -147,7 +165,7 @@ export function fetchWorks(query) {
         },
         err => {
           dispatch(setSearchField("sitbSpinner", false));
-          console.log("Oh no!", err);
+          dispatch(setSearchField("errorMessage", err));
         }
       )
     );

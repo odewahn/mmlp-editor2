@@ -10,7 +10,8 @@ import {
   setActiveTab,
   setSelectedItem,
   fetchSITB,
-  addSegment
+  addSegment,
+  segmentInSelectedSegments
 } from "../state/search";
 
 function safeIterator(x) {
@@ -18,6 +19,12 @@ function safeIterator(x) {
 }
 
 class SITBResultList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      itemHasBeenChecked: 0
+    };
+  }
   render() {
     return (
       <ul className="mdc-list demo-list mdc-list--two-line mdc-list--avatar-list">
@@ -27,13 +34,19 @@ class SITBResultList extends React.Component {
             className="mdc-list-item mdc-ripple-upgraded"
             onClick={() => {
               this.props.dispatch(addSegment(item));
+              this.setState({ itemHasBeenChecked: Math.random() });
             }}
+            itemchecked={this.state.itemHasBeenChecked}
           >
             <span
               className="mdc-list-item__graphic material-icons"
               aria-hidden="true"
             >
-              <Icon size={56} name="topics" />
+              {segmentInSelectedSegments(item, this.props.segments) ? (
+                <Icon size={56} name="checkmark" />
+              ) : (
+                <Icon size={56} name="topics" />
+              )}
             </span>
             <span className="mdc-list-item__text">
               <span className="mdc-list-item__primary-text">
@@ -62,7 +75,8 @@ export default connect(state => state)(
       super(props);
       this.state = {
         query: "",
-        spinning: false
+        spinning: false,
+        forceRefresh: 0.0
       };
     }
 
