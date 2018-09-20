@@ -100,7 +100,7 @@ export default connect(state => state)(
             variant="slim"
             ariaHidden={true}
             inputLabel="Search"
-            placeholder="Select a work"
+            placeholder="Search this work for a segment"
             onAutocomplete={e => this.handleChange("query", e)}
             onSearch={() => this.performSearch()}
           />

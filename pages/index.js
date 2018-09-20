@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import React from "react";
 import fetch from "isomorphic-unfetch";
 import buildUrl from "build-url";
@@ -5,26 +6,29 @@ import { connect } from "react-redux";
 
 import Head from "../components/head";
 import Modal from "@oreillymedia/design-system/Modal";
-import Notification from "@oreillymedia/design-system/Modal";
-import { TabGroup, Tab } from "@oreillymedia/design-system/TabGroup";
+import Navigation from "@oreillymedia/design-system/Navigation";
+import Footer from "@oreillymedia/design-system/Footer";
+import Button from "@oreillymedia/design-system/Button";
 
-import SearchWork from "../components/search-work";
-import SITB from "../components/search-inside-the-book";
+import Notification from "@oreillymedia/design-system/Modal";
+import SegmentSelector from "../components/segment-selector";
 
 // Imported Actions
-import {
-  setSearchResults,
-  setActiveTab,
-  setSelectedItem,
-  clearErrorMessage
-} from "../state/search";
+import { clearErrorMessage } from "../state/search";
 
 export default connect(state => state)(
   class Page extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        selectorOpen: false
+      };
+    }
     render() {
       return (
         <div>
           <Head title="Home" />
+          <Navigation />
           <Notification
             icon="warning-bang"
             open={this.props.errorMessage ? true : false}
@@ -34,17 +38,21 @@ export default connect(state => state)(
           >
             {this.props.errorMessage}
           </Notification>
-          <TabGroup
-            activeTab={this.props.activeTab}
-            onTabChange={i => this.props.dispatch(setActiveTab(i))}
+          <Modal
+            open={this.state.selectorOpen}
+            fixed={true}
+            onClose={() => {
+              this.setState({ selectorOpen: false });
+            }}
           >
-            <Tab title="Select Work">
-              <SearchWork {...this.props} />
-            </Tab>
-            <Tab title="Select segment">
-              <SITB {...this.props} />
-            </Tab>
-          </TabGroup>
+            <SegmentSelector {...this.props} />
+          </Modal>
+          <Button
+            onClick={() => {
+              this.setState({ selectorOpen: true });
+            }}
+          />
+          <Footer />
         </div>
       );
     }

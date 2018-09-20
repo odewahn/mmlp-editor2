@@ -77,7 +77,6 @@ export function addSegment(val) {
     const x = getState().segments;
     x.push(val);
     dispatch(setSearchField("segments", x));
-    console.log(val);
   };
 }
 
