@@ -62,8 +62,7 @@ export default connect(state => state)(
     constructor(props) {
       super(props);
       this.state = {
-        query: "",
-        spinning: false
+        query: ""
       };
     }
 
@@ -90,7 +89,7 @@ export default connect(state => state)(
             onAutocomplete={e => this.handleChange("query", e)}
             onSearch={() => this.performSearch()}
           />
-          {this.state.spinning ? <p>Searching...</p> : null}
+          {this.props.searchSpinner ? <p>Searching...</p> : null}
           <SearchResultList
             results={this.props.results["results"]}
             {...this.props}

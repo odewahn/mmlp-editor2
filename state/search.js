@@ -9,7 +9,7 @@ export const INITIAL_STATE = {
   results: [],
   selectedItem: {},
   activeTab: 0,
-  sitbSpinner: false,
+  searchSpinner: false,
   sitb_results: [],
   segments: [],
   errorMessage: null
@@ -132,18 +132,18 @@ export function fetchFromAPI(base, path, query, onSuccess, onFailure) {
 
 export function fetchSITB(query) {
   return (dispatch, getState) => {
-    dispatch(setSearchField("sitbSpinner", true));
+    dispatch(setSearchField("searchSpinner", true));
     dispatch(
       fetchFromAPI(
         "https://falcon.sfo.safaribooks.com",
         "/api/v2/sitb/",
         query,
         json => {
-          dispatch(setSearchField("sitbSpinner", false));
+          dispatch(setSearchField("searchSpinner", false));
           dispatch(setSITBResults(json));
         },
         err => {
-          dispatch(setSearchField("sitbSpinner", false));
+          dispatch(setSearchField("searchSpinner", false));
           dispatch(setSearchField("errorMessage", err));
         }
       )
@@ -153,18 +153,18 @@ export function fetchSITB(query) {
 
 export function fetchWorks(query) {
   return (dispatch, getState) => {
-    dispatch(setSearchField("sitbSpinner", true));
+    dispatch(setSearchField("searchSpinner", true));
     dispatch(
       fetchFromAPI(
         "https://falcon.sfo.safaribooks.com",
         "/api/v2/search/",
         query,
         json => {
-          dispatch(setSearchField("sitbSpinner", false));
+          dispatch(setSearchField("searchSpinner", false));
           dispatch(setSearchResults(json));
         },
         err => {
-          dispatch(setSearchField("sitbSpinner", false));
+          dispatch(setSearchField("searchSpinner", false));
           dispatch(setSearchField("errorMessage", err));
         }
       )

@@ -104,7 +104,7 @@ export default connect(state => state)(
             onAutocomplete={e => this.handleChange("query", e)}
             onSearch={() => this.performSearch()}
           />
-          {this.props.sitbSpinner ? <p>Searching...</p> : null}
+          {this.props.searchSpinner ? <p>Searching...</p> : null}
           <h1>{this.props.selectedItem.title}</h1>
           <SITBResultList
             results={this.props.sitb_results["results"]}
