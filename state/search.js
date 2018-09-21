@@ -12,7 +12,8 @@ export const INITIAL_STATE = {
   searchSpinner: false,
   sitb_results: [],
   segments: [],
-  errorMessage: null
+  errorMessage: null,
+  solr_results: {}
 };
 
 /*********************************************************************
@@ -97,6 +98,13 @@ export function segmentInSelectedSegments(s, segments) {
 // and a failure handler
 export function fetchFromAPI(base, path, query, onSuccess, onFailure) {
   return (dispatch, getState) => {
+    console.log(
+      query,
+      buildUrl(base, {
+        path: path,
+        queryParams: query
+      })
+    );
     fetch(
       buildUrl(base, {
         path: path,
@@ -161,6 +169,28 @@ export function fetchWorks(query) {
         json => {
           dispatch(setSearchField("searchSpinner", false));
           dispatch(setSearchResults(json));
+        },
+        err => {
+          dispatch(setSearchField("searchSpinner", false));
+          dispatch(setSearchField("errorMessage", err));
+        }
+      )
+    );
+  };
+}
+
+export function fetchSOLRWorks(query) {
+  return (dispatch, getState) => {
+    dispatch(setSearchField("searchSpinner", true));
+    dispatch(
+      fetchFromAPI(
+        "http://localhost:3000",
+        "/test",
+        query,
+        json => {
+          dispatch(setSearchField("searchSpinner", false));
+          dispatch(setSearchField("solr_results", json));
+          console.log(json);
         },
         err => {
           dispatch(setSearchField("searchSpinner", false));
