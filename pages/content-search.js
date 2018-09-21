@@ -43,11 +43,7 @@ export default connect(state => state)(
               this.handleChange("query", x);
             }}
             onSearch={() => {
-              this.props.dispatch(
-                fetchSOLRWorks({
-                  q: this.state.query
-                })
-              );
+              this.props.dispatch(fetchSOLRWorks(this.state.query));
             }}
           />
 

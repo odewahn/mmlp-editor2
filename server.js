@@ -12,31 +12,28 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
+  // provides a path to the search endpoint
   server.get("/test", (req, res) => {
-    console.log(req.query);
     var q = req.query["q"] ? req.query["q"] : "*";
     var url = buildUrl("http://index-01.qa.falcon.safaribooks.com:8983", {
       path: "/solr/collection2/select",
-      queryParams: {
-        q: q,
-        fl:
-          "id,authors,publishers,description,minutes_required,natural_key,subjects,title,chapter_title,format",
-        wt: "json",
-        indent: "true"
-      }
+      queryParams: req.query
     });
     cors(req, res, () => {
       fetch(url)
         .then(res => {
+          if (!res.ok) {
+            throw res;
+          }
           return res.json();
         })
         .then(data => {
           res.send(data);
+        })
+        .catch(err => {
+          throw new Error(err);
         });
     });
-    console.log(url);
-
-    //return res.send("Hello there!");
   });
 
   server.get("*", (req, res) => {

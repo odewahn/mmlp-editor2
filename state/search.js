@@ -181,12 +181,20 @@ export function fetchWorks(query) {
 
 export function fetchSOLRWorks(query) {
   return (dispatch, getState) => {
+    var q = {
+      q: query,
+      fl:
+        "id,authors,publishers,description,minutes_required,natural_key,subjects,title,chapter_title,format",
+      wt: "json",
+      indent: "true",
+      fq: "('video' OR 'book')"
+    };
     dispatch(setSearchField("searchSpinner", true));
     dispatch(
       fetchFromAPI(
         "http://localhost:3000",
         "/test",
-        query,
+        q,
         json => {
           dispatch(setSearchField("searchSpinner", false));
           dispatch(setSearchField("solr_results", json));
