@@ -24,13 +24,12 @@ class SearchResultList extends React.Component {
     return (
       <div style={{ minHeight: "50vh", maxHeight: "50vh", overflowY: "auto" }}>
         <ul className="mdc-list demo-list mdc-list--two-line mdc-list--avatar-list">
-          {safeIterator(this.props.results["results"]).map((item, idx) => (
+          {safeIterator(this.props.results).map((item, idx) => (
             <li
               key={item.isbn + "-" + idx}
               className="mdc-list-item mdc-ripple-upgraded"
               onClick={() => {
                 this.props.dispatch(setSelectedItem(item));
-                this.props.dispatch(setActiveTab(1));
               }}
             >
               <span
@@ -41,7 +40,7 @@ class SearchResultList extends React.Component {
               </span>
               <span className="mdc-list-item__text">
                 <span className="mdc-list-item__primary-text">
-                  {item.title}
+                  {item.chapter_title}
                 </span>
                 <span className="mdc-list-item__secondary-text">
                   {item.authors ? item.authors.join(", ") : null}

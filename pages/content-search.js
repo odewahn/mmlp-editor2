@@ -11,14 +11,10 @@ import Footer from "@oreillymedia/design-system/Footer";
 import Button from "@oreillymedia/design-system/Button";
 
 import Notification from "@oreillymedia/design-system/Modal";
-import SegmentSelector from "../components/segment-selector";
 
 // Imported Actions
-import {
-  clearErrorMessage,
-  fetchSOLRWorks,
-  setActiveTab
-} from "../state/search";
+import { clearErrorMessage, fetchSOLRWorks } from "../state/search";
+import SearchResults from "../components/search-results";
 
 export default connect(state => state)(
   class Page extends React.Component {
@@ -56,9 +52,7 @@ export default connect(state => state)(
           >
             {this.props.errorMessage}
           </Notification>
-          <div>
-            <p>this is some awesome fucking content</p>
-          </div>
+          <SearchResults {...this.props} />
           <Footer />
           <hr />
         </div>

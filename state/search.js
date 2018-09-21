@@ -8,12 +8,9 @@ import "isomorphic-unfetch";
 export const INITIAL_STATE = {
   results: [],
   selectedItem: {},
-  activeTab: 0,
   searchSpinner: false,
-  sitb_results: [],
   segments: [],
-  errorMessage: null,
-  solr_results: {}
+  errorMessage: null
 };
 
 /*********************************************************************
@@ -42,28 +39,9 @@ export function setSearchResults(val) {
   };
 }
 
-export function setSITBResults(val) {
-  return dispatch => {
-    dispatch(setSearchField("sitb_results", val));
-  };
-}
-
 export function setSelectedItem(val) {
   return dispatch => {
     dispatch(setSearchField("selectedItem", val));
-    dispatch(setSITBResults([]));
-    dispatch(
-      fetchSITB({
-        identifier: val.isbn,
-        query: "*"
-      })
-    );
-  };
-}
-
-export function setActiveTab(val) {
-  return dispatch => {
-    dispatch(setSearchField("activeTab", val));
   };
 }
 
@@ -137,48 +115,6 @@ export function fetchFromAPI(base, path, query, onSuccess, onFailure) {
   };
 }
 
-export function fetchSITB(query) {
-  return (dispatch, getState) => {
-    dispatch(setSearchField("searchSpinner", true));
-    dispatch(
-      fetchFromAPI(
-        "https://falcon.sfo.safaribooks.com",
-        "/api/v2/sitb/",
-        query,
-        json => {
-          dispatch(setSearchField("searchSpinner", false));
-          dispatch(setSITBResults(json));
-        },
-        err => {
-          dispatch(setSearchField("searchSpinner", false));
-          dispatch(setSearchField("errorMessage", err));
-        }
-      )
-    );
-  };
-}
-
-export function fetchWorks(query) {
-  return (dispatch, getState) => {
-    dispatch(setSearchField("searchSpinner", true));
-    dispatch(
-      fetchFromAPI(
-        "https://falcon.sfo.safaribooks.com",
-        "/api/v2/search/",
-        query,
-        json => {
-          dispatch(setSearchField("searchSpinner", false));
-          dispatch(setSearchResults(json));
-        },
-        err => {
-          dispatch(setSearchField("searchSpinner", false));
-          dispatch(setSearchField("errorMessage", err));
-        }
-      )
-    );
-  };
-}
-
 export function fetchSOLRWorks(query) {
   return (dispatch, getState) => {
     var q = {
@@ -187,7 +123,7 @@ export function fetchSOLRWorks(query) {
         "id,authors,publishers,description,minutes_required,natural_key,subjects,title,chapter_title,format",
       wt: "json",
       indent: "true",
-      fq: "('video' OR 'book')"
+      fq: 'format:("video" OR "book")'
     };
     dispatch(setSearchField("searchSpinner", true));
     dispatch(
@@ -197,7 +133,7 @@ export function fetchSOLRWorks(query) {
         q,
         json => {
           dispatch(setSearchField("searchSpinner", false));
-          dispatch(setSearchField("solr_results", json));
+          dispatch(setSearchField("results", json["response"]["docs"]));
           console.log(json);
         },
         err => {
