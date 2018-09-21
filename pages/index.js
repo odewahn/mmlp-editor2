@@ -14,21 +14,41 @@ import Notification from "@oreillymedia/design-system/Modal";
 import SegmentSelector from "../components/segment-selector";
 
 // Imported Actions
-import { clearErrorMessage } from "../state/search";
+import { clearErrorMessage, fetchWorks, setActiveTab } from "../state/search";
 
 export default connect(state => state)(
   class Page extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        selectorOpen: false
+        selectorOpen: false,
+        query: ""
       };
+    }
+
+    handleChange(k, v) {
+      console.log(v);
+      this.setState({ [k]: v });
     }
     render() {
       return (
         <div>
           <Head title="Home" />
-          <Navigation />
+          <Navigation
+            onAutocomplete={x => {
+              this.handleChange("query", x);
+            }}
+            onSearch={() => {
+              this.setState({ selectorOpen: true });
+              this.props.dispatch(setActiveTab(0));
+              this.props.dispatch(
+                fetchWorks({
+                  query: this.state.query
+                })
+              );
+            }}
+          />
+          <p>Some stuff goes here!</p>
           <Notification
             icon="warning-bang"
             open={this.props.errorMessage ? true : false}
@@ -38,20 +58,16 @@ export default connect(state => state)(
           >
             {this.props.errorMessage}
           </Notification>
-          <Modal
-            open={this.state.selectorOpen}
-            fixed={true}
-            onClose={() => {
-              this.setState({ selectorOpen: false });
-            }}
-          >
-            <SegmentSelector {...this.props} />
-          </Modal>
-          <Button
-            onClick={() => {
-              this.setState({ selectorOpen: true });
-            }}
-          />
+          <div style={{ width: "80%", marginLeft: "10%", opacity: "0.9" }}>
+            <Modal
+              open={this.state.selectorOpen}
+              onClose={() => {
+                this.setState({ selectorOpen: false });
+              }}
+            >
+              <SegmentSelector query={this.state.query} {...this.props} />
+            </Modal>
+          </div>
           <Footer />
         </div>
       );

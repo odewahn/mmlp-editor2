@@ -27,44 +27,46 @@ class SITBResultList extends React.Component {
   }
   render() {
     return (
-      <ul className="mdc-list demo-list mdc-list--two-line mdc-list--avatar-list">
-        {safeIterator(this.props.sitb_results["results"]).map((item, idx) => (
-          <li
-            key={item.isbn + "-" + idx}
-            className="mdc-list-item mdc-ripple-upgraded"
-            onClick={() => {
-              this.props.dispatch(addSegment(item));
-              this.setState({ itemHasBeenChecked: Math.random() });
-            }}
-            itemchecked={this.state.itemHasBeenChecked}
-          >
-            <span
-              className="mdc-list-item__graphic material-icons"
-              aria-hidden="true"
+      <div style={{ minHeight: "50vh", maxHeight: "50vh", overflowY: "auto" }}>
+        <ul className="mdc-list demo-list mdc-list--two-line mdc-list--avatar-list">
+          {safeIterator(this.props.sitb_results["results"]).map((item, idx) => (
+            <li
+              key={item.isbn + "-" + idx}
+              className="mdc-list-item mdc-ripple-upgraded"
+              onClick={() => {
+                this.props.dispatch(addSegment(item));
+                this.setState({ itemHasBeenChecked: Math.random() });
+              }}
+              itemchecked={this.state.itemHasBeenChecked}
             >
-              {segmentInSelectedSegments(item, this.props.segments) ? (
-                <Icon size={56} name="checkmark" />
-              ) : (
-                <Icon size={56} name="topics" />
-              )}
-            </span>
-            <span className="mdc-list-item__text">
-              <span className="mdc-list-item__primary-text">
-                {item.chapter_title}
+              <span
+                className="mdc-list-item__graphic material-icons"
+                aria-hidden="true"
+              >
+                {segmentInSelectedSegments(item, this.props.segments) ? (
+                  <Icon size={56} name="checkmark" />
+                ) : (
+                  <Icon size={56} name="topics" />
+                )}
               </span>
-              <span className="mdc-list-item__secondary-text">
-                {item.title}
+              <span className="mdc-list-item__text">
+                <span className="mdc-list-item__primary-text">
+                  {item.chapter_title}
+                </span>
+                <span className="mdc-list-item__secondary-text">
+                  {item.title}
+                </span>
               </span>
-            </span>
-            <span
-              className="mdc-list-item__meta material-icons"
-              aria-hidden="true"
-            >
-              <Icon size={36} name="add-plus" />
-            </span>
-          </li>
-        ))}
-      </ul>
+              <span
+                className="mdc-list-item__meta material-icons"
+                aria-hidden="true"
+              >
+                <Icon size={36} name="add-plus" />
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
 }
