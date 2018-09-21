@@ -15,6 +15,22 @@ https://http.howard.svc.dev-seb.local/
 
 https://http.videometadataservice.svc.prod-sfo.local/api/v1/
 
+# Direct SOLR search:
+
+Note that you have to be on the right VPN for this to work; I had to be on `sfo-openvpn`, but YMMV.
+
+## Use the SOLR admin to construct a query:
+
+http://index-01.qa.falcon.safaribooks.com:8983/solr/#/collection2/query
+
+Then you can execute specific queries, like this:
+
+## Get a piece of content by its ID
+
+Might use this to grab content for a content preview:
+
+http://index-01.qa.falcon.safaribooks.com:8983/solr/collection2/select?q=id%3Ahttps%3A%2F%2Fwww.qa.safariflow.com%2Fapi%2Fv1%2Fbook%2F9780988820258%2Fchapter%2Ftext%2Fch001.xhtml&wt=json&indent=true
+
 # Search For a Work
 
 ## Examples
