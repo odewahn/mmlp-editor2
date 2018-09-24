@@ -5,10 +5,10 @@ import buildUrl from "build-url";
 import { connect } from "react-redux";
 
 import Head from "../components/head";
-import Modal from "@oreillymedia/design-system/Modal";
 import Navigation from "@oreillymedia/design-system/Navigation";
 import Footer from "@oreillymedia/design-system/Footer";
 import Button from "@oreillymedia/design-system/Button";
+import { Grid, Row, Column } from "@oreillymedia/design-system/Grid";
 
 import Notification from "@oreillymedia/design-system/Modal";
 
@@ -25,37 +25,52 @@ export default connect(state => state)(
         query: ""
       };
     }
-
     handleChange(k, v) {
       this.setState({ [k]: v });
     }
-
     render() {
       return (
-        <div>
-          <Head title="Search Content" />
-          <Navigation
-            onAutocomplete={x => {
-              this.handleChange("query", x);
-            }}
-            onSearch={() => {
-              this.props.dispatch(fetchSOLRWorks(this.state.query));
-            }}
-          />
-
-          <Notification
-            icon="warning-bang"
-            open={this.props.errorMessage ? true : false}
-            onClose={() => {
-              this.props.dispatch(clearErrorMessage());
-            }}
-          >
-            {this.props.errorMessage}
-          </Notification>
-          <SearchResults {...this.props} />
-          <Footer />
-          <hr />
-        </div>
+        <Grid>
+          <Row>
+            <Column col={{ medium: 12 }}>
+              <Head title="Search Content" />
+              <Navigation
+                onAutocomplete={x => {
+                  this.handleChange("query", x);
+                }}
+                onSearch={() => {
+                  this.props.dispatch(fetchSOLRWorks(this.state.query));
+                }}
+              />
+            </Column>
+          </Row>
+          <Row>
+            <Column col={{ medium: 12 }}>
+              <Notification
+                icon="warning-bang"
+                open={this.props.errorMessage ? true : false}
+                onClose={() => {
+                  this.props.dispatch(clearErrorMessage());
+                }}
+              >
+                {this.props.errorMessage}
+              </Notification>
+            </Column>
+          </Row>
+          <Row>
+            <Column col={{ medium: 4 }}>
+              <SearchResults {...this.props} />
+            </Column>
+            <Column col={{ medium: 8 }}>
+              <p> The preview will go here</p>
+            </Column>
+          </Row>
+          <Row>
+            <Column col={{ medium: 12 }}>
+              <Footer />
+            </Column>
+          </Row>
+        </Grid>
       );
     }
   }

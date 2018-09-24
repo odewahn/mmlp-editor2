@@ -23,6 +23,5 @@
   },
   "devDependencies": {
     "@oreillymedia/design-system": "^2.0.0"
-  },
-  "proxy": "localhost:3000"
+  }
 }
