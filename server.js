@@ -12,11 +12,16 @@ app.prepare().then(() => {
   const server = express();
 
   // provides a path to the search endpoint
-  server.get("/test", (req, res) => {
-    var url = buildUrl("http://index-01.qa.falcon.safaribooks.com:8983", {
+  // indexer-falcon.sfo.safaribooks.com
+  //    var url = buildUrl("http://index-01.qa.falcon.safaribooks.com:8983", {
+  // var url = buildUrl("http://indexer-falcon.sfo.safaribooks.com:8983", {
+
+  server.get("/search", (req, res) => {
+    var url = buildUrl("http://falcon-app2.prod.safaribooks.com:8983", {
       path: "/solr/collection2/select",
       queryParams: req.query
     });
+    console.log(url);
     fetch(url)
       .then(res => {
         if (!res.ok) {

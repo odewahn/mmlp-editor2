@@ -5,6 +5,21 @@ const defaultDescription = "";
 const defaultOGURL = "";
 const defaultOGImage = "";
 
+/*
+<script
+  src={
+    "http://cdnapi.kaltura.com/p/" +
+    this.props.kalturaPartnerId +
+    "/sp/" +
+    props.kalturaPartnerId +
+    "00/embedIframeJs/uiconf_id/" +
+    props.kalturaUiConfId +
+    "/partner_id/" +
+    props.kalturaPartnerId
+  }
+/>
+*/
+
 const Head = props => (
   <NextHead>
     <meta charSet="UTF-8" />

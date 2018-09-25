@@ -9,10 +9,10 @@ import Icon from "@oreillymedia/design-system/Icon";
 // Imported Actions
 import {
   setSearchResults,
-  setActiveTab,
   setSelectedItem,
   fetchWorks,
-  setErrorMessage
+  setErrorMessage,
+  fetchSOLRContent
 } from "../state/search";
 
 function safeIterator(x) {
@@ -40,10 +40,10 @@ class SearchResultList extends React.Component {
               </span>
               <span className="mdc-list-item__text">
                 <span className="mdc-list-item__primary-text">
-                  {item.chapter_title}
+                  {item.title}
                 </span>
                 <span className="mdc-list-item__secondary-text">
-                  {item.authors ? item.authors.join(", ") : null}
+                  {item.chapter_title}
                 </span>
               </span>
               <span

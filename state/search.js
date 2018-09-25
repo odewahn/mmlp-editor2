@@ -6,11 +6,15 @@ import "isomorphic-unfetch";
 *********************************************************************/
 
 export const INITIAL_STATE = {
+  kalturaPartnerId: "1926081",
+  kalturaUiConfId: "42930101",
   results: [],
   selectedItem: {},
   searchSpinner: false,
+  contentSpinner: false,
   segments: [],
-  errorMessage: null
+  errorMessage: null,
+  content: {}
 };
 
 /*********************************************************************
@@ -42,6 +46,8 @@ export function setSearchResults(val) {
 export function setSelectedItem(val) {
   return dispatch => {
     dispatch(setSearchField("selectedItem", val));
+    console.log(val);
+    dispatch(fetchSOLRContent(val.id));
   };
 }
 
@@ -116,6 +122,8 @@ export function fetchFromAPI(base, path, query, onSuccess, onFailure) {
 }
 
 export function fetchSOLRWorks(query) {
+  //      fq: 'format:("video" OR "book")'
+
   return (dispatch, getState) => {
     var q = {
       q: query,
@@ -123,13 +131,13 @@ export function fetchSOLRWorks(query) {
         "id,authors,publishers,description,minutes_required,natural_key,subjects,title,chapter_title,format",
       wt: "json",
       indent: "true",
-      fq: 'format:("video" OR "book")'
+      fq: 'format:("book" or "video")'
     };
     dispatch(setSearchField("searchSpinner", true));
     dispatch(
       fetchFromAPI(
         "http://localhost:3000",
-        "/test",
+        "/search",
         q,
         json => {
           dispatch(setSearchField("searchSpinner", false));
@@ -138,6 +146,37 @@ export function fetchSOLRWorks(query) {
         },
         err => {
           dispatch(setSearchField("searchSpinner", false));
+          dispatch(setSearchField("errorMessage", err));
+        }
+      )
+    );
+  };
+}
+
+export function fetchSOLRContent(query) {
+  return (dispatch, getState) => {
+    var q = {
+      q: "id:" + query,
+      wt: "json",
+      indent: "true"
+    };
+    console.log(q);
+    dispatch(setSearchField("contentSpinner", true));
+
+    dispatch(
+      fetchFromAPI(
+        "http://localhost:3000",
+        "/search",
+        q,
+        json => {
+          dispatch(setSearchField("contentSpinner", false));
+          if (json["response"]["docs"].length > 0) {
+            dispatch(setSearchField("content", json["response"]["docs"][0]));
+            console.log(json["response"]["docs"][0]);
+          }
+        },
+        err => {
+          dispatch(setSearchField("contentSpinner", false));
           dispatch(setSearchField("errorMessage", err));
         }
       )

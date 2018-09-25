@@ -97,3 +97,53 @@ http --verify=no GET https://falcon.sfo.safaribooks.com/api/v2/sitb/ \
 http --verify=no GET https://falcon.sfo.safaribooks.com/api/v2/sitb/ \
  identifier==9781771374514 \
  query==python
+
+# Kaltura Player
+
+[Raw Notes]
+
+4
+
+Message List
+
+Carl Eberhard [12:24 PM]
+Longer form is: the kaltura player uses an old-school pub-sub api and global player factory (`kWidget`) - those can complicate the react wrapper that needs to control it
+The short form would be: there’s no great hello-world and the essentials are:
+
+1.  get the factory script on the page (either in your page scripts or load it like we do with something like react-script)
+2.  onMount call `kWidget` to create the player, pointing it at a unique dom id and adding a _bunch_ of attributes including autoplay, etc.
+3.  optionally include an `onReadyCallback` with the player that will let you control other events (edited)
+    (let me check the keys above - which are from memory)
+    Here’s the kwidget embed doc I’ve used: http://player.kaltura.com/docs/api#kWidget (edited)
+    You can mainly copy the default attributes for this http://player.kaltura.com/docs/api#kWidget.settingsObject from the videoplayer (edited)
+
+Andrew Odewahn [12:30 PM]
+Awesome — thanks for all this info, Carl! This will give me plenty to chew on.
+
+Carl Eberhard [12:30 PM]
+Let us know if you hit a hurdle on it
+And keep in mind, anything more complicated than showing one video get’s dicey fast - do-able, but dicey
+
+Andrew Odewahn [12:31 PM]
+are these env values valid for local development: https://github.com/safarijv/video-client/blob/master/env.local
+is there any other whitelising or anything (again, this was years ago I looked at this)
+
+Carl Eberhard [12:31 PM]
+Those should all work for local (currently)
+
+Andrew Odewahn [12:32 PM]
+Great!
+
+Carl Eberhard [12:32 PM]
+Hmm. I haven’t hit any allow/disallow list - do you recall anything else about it?
+
+Andrew Odewahn [12:33 PM]
+great. I’ll poke around in the examples with this and see where I get — thanks for the quick response
+(and, I pretty much just want to be able to play a video — nothing fancy)
+
+Carl Eberhard [12:33 PM]
+:thumbsup:
+
+Message Input
+
+Message Carl Eberhard, Jamey DeOrio, katy lavallee
