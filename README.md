@@ -7,6 +7,8 @@
 - [create-next-app tool](https://github.com/segmentio/create-next-app)
 - [Video clips content API](https://github.com/safarijv/video-client/blob/master/src/api/contents.js)
 
+- [Material web component library](https://material.io/develop/web/)
+
 # Authentication
 
 This is lame, but you first have to get a session token from
