@@ -1,0 +1,19 @@
+.playerWrapper {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 0;
+}
+
+.player {
+  padding-bottom: 60.1%;
+  position: relative;
+}
+
+.player iframe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

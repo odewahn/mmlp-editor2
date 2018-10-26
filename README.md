@@ -102,12 +102,6 @@ http --verify=no GET https://falcon.sfo.safaribooks.com/api/v2/sitb/ \
 
 # Kaltura Player
 
-[Raw Notes]
-
-4
-
-Message List
-
 Carl Eberhard [12:24 PM]
 Longer form is: the kaltura player uses an old-school pub-sub api and global player factory (`kWidget`) - those can complicate the react wrapper that needs to control it
 The short form would be: there’s no great hello-world and the essentials are:

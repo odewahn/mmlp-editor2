@@ -76,6 +76,13 @@ export function segmentInSelectedSegments(s, segments) {
   return retVal;
 }
 
+// The Kaltura reference ID seems to just always be based on the natural key field
+// It's all the fields joined with a "-", and the extension (.html) stripped out
+// This is hacky but we'll see if it works
+export function computeKalturaReferenceID(result) {
+  return result["natural_key"].join("-").split(".")[0];
+}
+
 // This is a private wrapper function that handles the error scenarios
 // for fetch so that you can properly handle errors
 // If expects the 3 functions -- one to do the actual fetch, a success handler
@@ -122,8 +129,6 @@ export function fetchFromAPI(base, path, query, onSuccess, onFailure) {
 }
 
 export function fetchSOLRWorks(query) {
-  //      fq: 'format:("video" OR "book")'
-
   return (dispatch, getState) => {
     var q = {
       q: query,
@@ -142,7 +147,6 @@ export function fetchSOLRWorks(query) {
         json => {
           dispatch(setSearchField("searchSpinner", false));
           dispatch(setSearchField("results", json["response"]["docs"]));
-          console.log(json);
         },
         err => {
           dispatch(setSearchField("searchSpinner", false));
@@ -160,7 +164,6 @@ export function fetchSOLRContent(query) {
       wt: "json",
       indent: "true"
     };
-    console.log(q);
     dispatch(setSearchField("contentSpinner", true));
 
     dispatch(
@@ -172,7 +175,6 @@ export function fetchSOLRContent(query) {
           dispatch(setSearchField("contentSpinner", false));
           if (json["response"]["docs"].length > 0) {
             dispatch(setSearchField("content", json["response"]["docs"][0]));
-            console.log(json["response"]["docs"][0]);
           }
         },
         err => {

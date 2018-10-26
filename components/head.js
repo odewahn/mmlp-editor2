@@ -5,21 +5,6 @@ const defaultDescription = "";
 const defaultOGURL = "";
 const defaultOGImage = "";
 
-/*
-<script
-  src={
-    "http://cdnapi.kaltura.com/p/" +
-    this.props.kalturaPartnerId +
-    "/sp/" +
-    props.kalturaPartnerId +
-    "00/embedIframeJs/uiconf_id/" +
-    props.kalturaUiConfId +
-    "/partner_id/" +
-    props.kalturaPartnerId
-  }
-/>
-*/
-
 const Head = props => (
   <NextHead>
     <meta charSet="UTF-8" />
@@ -32,6 +17,7 @@ const Head = props => (
 
     <link rel="stylesheet" type="text/css" href="/static/base.css" />
     <link rel="stylesheet" type="text/css" href="/static/components.css" />
+    <link rel="stylesheet" type="text/css" href="/static/video-player.css" />
     <link rel="stylesheet" type="text/css" href="/static/mdc.list.min.css" />
 
     <meta property="og:url" content={props.url || defaultOGURL} />

@@ -1,19 +1,21 @@
 import "babel-polyfill";
 import React from "react";
-import fetch from "isomorphic-unfetch";
-import buildUrl from "build-url";
 import { connect } from "react-redux";
 
 import Head from "../components/head";
-import Navigation from "@oreillymedia/design-system/Navigation";
-import Footer from "@oreillymedia/design-system/Footer";
 import Button from "@oreillymedia/design-system/Button";
+import SearchBar from "@oreillymedia/design-system/SearchBar";
 import { Grid, Row, Column } from "@oreillymedia/design-system/Grid";
 
 import Notification from "@oreillymedia/design-system/Modal";
+import VideoPlayer from "../components/video-player";
 
 // Imported Actions
-import { clearErrorMessage, fetchSOLRWorks } from "../state/search";
+import {
+  clearErrorMessage,
+  fetchSOLRWorks,
+  computeKalturaReferenceID
+} from "../state/search";
 import SearchResults from "../components/search-results";
 
 export default connect(state => state)(
@@ -28,20 +30,13 @@ export default connect(state => state)(
     handleChange(k, v) {
       this.setState({ [k]: v });
     }
+
     render() {
       return (
         <Grid>
           <Row>
             <Column col={{ medium: 12 }}>
               <Head title="Search Content" />
-              <Navigation
-                onAutocomplete={x => {
-                  this.handleChange("query", x);
-                }}
-                onSearch={() => {
-                  this.props.dispatch(fetchSOLRWorks(this.state.query));
-                }}
-              />
             </Column>
           </Row>
           <Row>
@@ -59,6 +54,14 @@ export default connect(state => state)(
           </Row>
           <Row>
             <Column col={{ medium: 5 }}>
+              <SearchBar
+                onAutocomplete={x => {
+                  this.handleChange("query", x);
+                }}
+                onSearch={() => {
+                  this.props.dispatch(fetchSOLRWorks(this.state.query));
+                }}
+              />
               <SearchResults {...this.props} />
             </Column>
             <Column col={{ medium: 7 }}>
@@ -79,16 +82,21 @@ export default connect(state => state)(
               ) : null}
 
               <hr />
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: this.props.content.content_raw
-                }}
-              />
-            </Column>
-          </Row>
-          <Row>
-            <Column col={{ medium: 12 }}>
-              <Footer />
+
+              {this.props.content.format == "video" ? (
+                <VideoPlayer
+                  targetId={Math.random()
+                    .toString(36)
+                    .substring(2, 15)}
+                  referenceId={computeKalturaReferenceID(this.props.content)}
+                />
+              ) : (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: this.props.content.content_raw
+                  }}
+                />
+              )}
             </Column>
           </Row>
         </Grid>
