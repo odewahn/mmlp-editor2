@@ -85,9 +85,7 @@ export default connect(state => state)(
 
               {this.props.content.format == "video" ? (
                 <VideoPlayer
-                  targetId={Math.random()
-                    .toString(36)
-                    .substring(2, 15)}
+                  targetId="kaltura-player"
                   referenceId={computeKalturaReferenceID(this.props.content)}
                 />
               ) : (

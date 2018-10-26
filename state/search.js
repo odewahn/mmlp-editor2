@@ -80,7 +80,11 @@ export function segmentInSelectedSegments(s, segments) {
 // It's all the fields joined with a "-", and the extension (.html) stripped out
 // This is hacky but we'll see if it works
 export function computeKalturaReferenceID(result) {
-  return result["natural_key"].join("-").split(".")[0];
+  var out = "";
+  if (result["natural_key"]) {
+    out = result["natural_key"].join("-").split(".")[0];
+  }
+  return out;
 }
 
 // This is a private wrapper function that handles the error scenarios
