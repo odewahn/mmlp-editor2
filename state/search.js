@@ -8,6 +8,8 @@ import "isomorphic-unfetch";
 export const INITIAL_STATE = {
   kalturaPartnerId: "1926081",
   kalturaUiConfId: "42930101",
+  kalturaSession:
+    "djJ8MTkyNjA4MXxwtSzTm4R1w6tqrHX22aTx9LV29yWFu7bWx9oBvG2RO1E593vfUzG9zijcqBvkCV8OcQoetl0q4wBpO6sGm9ZAAh41-fTKG4Zcb9tr-oMfEg==",
   results: [],
   selectedItem: {},
   searchSpinner: false,

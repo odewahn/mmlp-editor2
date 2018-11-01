@@ -143,3 +143,46 @@ Carl Eberhard [12:33 PM]
 Message Input
 
 Message Carl Eberhard, Jamey DeOrio, katy lavallee
+
+## Authorizing Kaltura Calls
+
+howdy! can someone help point me in the right direction? I’m trying to figure out where I’d start to use one of the new heron JWTs to get a Kalutura session I can use to play a full video. Here’s the code that does this in the video player now: https://github.com/safarijv/video-client/blob/master/src/api/kaltura.js. I get that you probably have to pass the JWT to this endpoint, but do you all know off the top of your head where I’d find any docs on `/api/v1/player/kaltura_session` and how to use it?
+
+Carl Eberhard [3:58 PM]
+I can get you to that endpoint, but there aren’t many docs there
+
+Andrew Odewahn [3:58 PM]
+bascially, I’m looking for how this `kalturasessions.session` value is set
+Screen Shot 2018-10-26 at 3.46.50 PM.png
+
+cool — thanks, Carl!
+
+Carl Eberhard [3:59 PM]
+Here’s where the session is generated: https://github.com/safarijv/heron/blob/develop/heron/player_utils.py#L16
+It’s called from here: https://github.com/safarijv/heron/blob/develop/api/views.py#L866
+KalturaClient and the method we call in player-utils is required here: https://github.com/safarijv/heron/blob/develop/requirements/base.txt#L184
+If you can auth with the JWT to get that endpoint to return a session key, that should work for when you embed the player
+
+If you're authenticated, you can hit https://www.safaribooksonline.com/api/v1/player/kaltura_session/ and you'll get
+
+```
+{
+expiry: "2018-10-26T20:34:58.135005",
+privileges: "sview:*",
+session: "djJ8MTkyNjA4MXyl9cvXgf3toOnuE9C9xnc3cPMVHKMsGau5Ev2FOMdnTm2NojqXBJ6PwEoKptmfnBdwNU6Xtj-gHv-FWhS7wPsfwj3ZlU2puo11FDjEuOgi_Q=="
+}
+```
+
+You'd just want to pass it through in an `Authorization` header as a `Bearer` token, so something like `curl -H "Authorization: Bearer <VERY_LONG_JWT_STRING>" https://www.safaribooksonline.com/...` (edited)
+
+```
+http https://www.safaribooksonline.com/api/v1/player/kaltura_session/ \
+  'Authorization:  Bearer eyJhbGciOiAiUlMyNTYifQ.eyJhY2N0cyI6IFsiMTllOTM4NmUtYTk2MC00NDcwLTk3MTItNGVjMDIzODRlM2ZmIiwgImE2ZmQzMDcyLWIxOTMtNGIyOC05NjZhLTUxMDE2OGExZTEwYiJdLCAiZWlkcyI6IHsiaGVyb24iOiAiYTMzNDNjMTEtMjExNi00ZDA3LWIyMzUtYWE3YzE2YTAxNGQ2IiwgImphbnJhaW4iOiAiMTRlYjRhZTEtY2QwYi00NDM1LWEwOTEtNzFlZmQ1YTA3OTRkIn0sICJleHAiOiAxNTQwNTk2OTUxLCAiaW5kaXZpZHVhbCI6IHRydWUsICJwZXJtcyI6IHsiYWNhZG0iOiAidiIsICJhcGlkYyI6ICJ2IiwgImNuZnJjIjogInYiLCAiY3NzdGQiOiAidiIsICJlcHVicyI6ICJ2IiwgImxycHRoIjogInYiLCAibHZ0cmciOiAidiIsICJvcmlvbCI6ICJ2IiwgInBseWxzIjogInYiLCAidXNhZ2UiOiAiYyIsICJ1c3JwZiI6ICJjZXYiLCAidmlkZW8iOiAidiJ9LCAic3ViIjogImFlYzAwYTI0LTc3YjAtNGNiYy1iODUwLWRjOGFjMTRkN2U0NCJ9.kzbqxAcPvKhnEGqBQvK1kUUkUoWZJWj--ZN2F1DasEun2rWwFH2VOB6Gze4ewowDQzA_3T2aSLAHixD4I07ucoeMCx856toM1WBIwee6zMRy3zmDESHpRC_kSlTuaQ8nLpGT0h6lSv9fXz2UaqRmj7ymKSi-9JisgGDt77IpgCI'
+```
+
+Here it is using cURL:
+
+```
+curl -H "Authentication:  eyJhbGciOiAiUlMyNTYifQ.eyJhY2N0cyI6IFsiMTllOTM4NmUtYTk2MC00NDcwLTk3MTItNGVjMDIzODRlM2ZmIiwgImE2ZmQzMDcyLWIxOTMtNGIyOC05NjZhLTUxMDE2OGExZTEwYiJdLCAiZWlkcyI6IHsiaGVyb24iOiAiYTMzNDNjMTEtMjExNi00ZDA3LWIyMzUtYWE3YzE2YTAxNGQ2IiwgImphbnJhaW4iOiAiMTRlYjRhZTEtY2QwYi00NDM1LWEwOTEtNzFlZmQ1YTA3OTRkIn0sICJleHAiOiAxNTQwNTk2OTUxLCAiaW5kaXZpZHVhbCI6IHRydWUsICJwZXJtcyI6IHsiYWNhZG0iOiAidiIsICJhcGlkYyI6ICJ2IiwgImNuZnJjIjogInYiLCAiY3NzdGQiOiAidiIsICJlcHVicyI6ICJ2IiwgImxycHRoIjogInYiLCAibHZ0cmciOiAidiIsICJvcmlvbCI6ICJ2IiwgInBseWxzIjogInYiLCAidXNhZ2UiOiAiYyIsICJ1c3JwZiI6ICJjZXYiLCAidmlkZW8iOiAidiJ9LCAic3ViIjogImFlYzAwYTI0LTc3YjAtNGNiYy1iODUwLWRjOGFjMTRkN2U0NCJ9.kzbqxAcPvKhnEGqBQvK1kUUkUoWZJWj--ZN2F1DasEun2rWwFH2VOB6Gze4ewowDQzA_3T2aSLAHixD4I07ucoeMCx856toM1WBIwee6zMRy3zmDESHpRC_kSlTuaQ8nLpGT0h6lSv9fXz2UaqRmj7ymKSi-9JisgGDt77IpgCI" \
+https://www.safaribooksonline.com/api/v1/player/kaltura_session/
+```
