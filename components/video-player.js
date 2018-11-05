@@ -5,6 +5,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Script from "react-load-script";
+
+// Comment out loading the stules since we're getting these through the <Head> element
 //import styles from './VideoPlayer.css';
 
 const PREFERED_PLAYBACK_RATE_KEY = "PREFERRED_PLAYBACK_RATE";

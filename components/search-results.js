@@ -1,6 +1,4 @@
 import React from "react";
-import fetch from "isomorphic-unfetch";
-import buildUrl from "build-url";
 import { connect } from "react-redux";
 
 import SearchBar from "@oreillymedia/design-system/SearchBar";
@@ -29,7 +27,7 @@ function safeIterator(x) {
   return x ? x : [];
 }
 
-//  selected={this.props.selectedItem["id"] == item.id ? true : false}
+//               selected={this.props.selectedItem["id"] == item.id ? true : false}
 
 class SearchResultList extends React.Component {
   render() {
@@ -41,6 +39,7 @@ class SearchResultList extends React.Component {
               onClick={() => {
                 this.props.dispatch(setSelectedItem(item));
               }}
+              key={"search-items" + this.props.selectedItem["id"] + "-" + idx}
             >
               <ListItemGraphic icon={<Icon size={56} name={item.format} />} />
               <ListItemText>

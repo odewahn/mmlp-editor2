@@ -9,7 +9,7 @@ export const INITIAL_STATE = {
   kalturaPartnerId: "1926081",
   kalturaUiConfId: "42930101",
   kalturaSession:
-    "djJ8MTkyNjA4MXxwtSzTm4R1w6tqrHX22aTx9LV29yWFu7bWx9oBvG2RO1E593vfUzG9zijcqBvkCV8OcQoetl0q4wBpO6sGm9ZAAh41-fTKG4Zcb9tr-oMfEg==",
+    "djJ8MTkyNjA4MXx19ebwKXU3Ut_rWLj-WtJu97gE4_Xzv-bbvJ4xZZKQtGOhgf-bWqCohmaufUaxl_ylHUJ9bN6VfC4EhJi-ESQAxh-d32Hurg7r7EBJVfBvOw==",
   results: [],
   selectedItem: {},
   searchSpinner: false,
