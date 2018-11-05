@@ -6,6 +6,16 @@ import { connect } from "react-redux";
 import SearchBar from "@oreillymedia/design-system/SearchBar";
 import Icon from "@oreillymedia/design-system/Icon";
 
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemPrimaryText,
+  ListItemSecondaryText,
+  ListItemGraphic,
+  ListItemMeta
+} from "@rmwc/list";
+
 // Imported Actions
 import {
   setSearchResults,
@@ -19,42 +29,30 @@ function safeIterator(x) {
   return x ? x : [];
 }
 
+//  selected={this.props.selectedItem["id"] == item.id ? true : false}
+
 class SearchResultList extends React.Component {
   render() {
     return (
-      <div style={{ minHeight: "50vh", maxHeight: "50vh", overflowY: "auto" }}>
-        <ul className="mdc-list demo-list mdc-list--two-line mdc-list--avatar-list">
+      <div style={{ maxHeight: "75vh", overflowY: "auto" }}>
+        <List twoLine>
           {safeIterator(this.props.results).map((item, idx) => (
-            <li
-              key={item.isbn + "-" + idx}
-              className="mdc-list-item mdc-ripple-upgraded"
+            <ListItem
               onClick={() => {
                 this.props.dispatch(setSelectedItem(item));
               }}
             >
-              <span
-                className="mdc-list-item__graphic material-icons"
-                aria-hidden="true"
-              >
-                <Icon size={56} name={item.format} />
-              </span>
-              <span className="mdc-list-item__text">
-                <span className="mdc-list-item__primary-text">
-                  {item.title}
-                </span>
-                <span className="mdc-list-item__secondary-text">
+              <ListItemGraphic icon={<Icon size={56} name={item.format} />} />
+              <ListItemText>
+                <ListItemPrimaryText>{item.title}</ListItemPrimaryText>
+                <ListItemSecondaryText>
                   {item.chapter_title}
-                </span>
-              </span>
-              <span
-                className="mdc-list-item__meta material-icons"
-                aria-hidden="true"
-              >
-                <Icon name="chevron-right" />
-              </span>
-            </li>
+                </ListItemSecondaryText>
+              </ListItemText>
+              <ListItemMeta icon={<Icon name="chevron-right" />} />
+            </ListItem>
           ))}
-        </ul>
+        </List>
       </div>
     );
   }

@@ -67,6 +67,7 @@ export default connect(state => state)(
             <Column col={{ medium: 7 }}>
               {this.props.contentSpinner ? <p>Searching...</p> : null}
               <h1>{this.props.content.title}</h1>
+
               {this.props.content.authors
                 ? this.props.content.authors.join(", ")
                 : null}
@@ -76,6 +77,8 @@ export default connect(state => state)(
                 : null}
               <br />
               {this.props.content.issued}
+              <br />
+
               <br />
               {Object.keys(this.props.content).length > 0 ? (
                 <Button variant="secondary">Add to my path</Button>

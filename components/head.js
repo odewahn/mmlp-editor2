@@ -15,10 +15,20 @@ const Head = props => (
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/static/material-components-web.min.css"
+    />
+
     <link rel="stylesheet" type="text/css" href="/static/base.css" />
     <link rel="stylesheet" type="text/css" href="/static/components.css" />
     <link rel="stylesheet" type="text/css" href="/static/video-player.css" />
-    <link rel="stylesheet" type="text/css" href="/static/mdc.list.min.css" />
 
     <meta property="og:url" content={props.url || defaultOGURL} />
     <meta property="og:title" content={props.title || ""} />
