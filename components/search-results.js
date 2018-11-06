@@ -27,8 +27,6 @@ function safeIterator(x) {
   return x ? x : [];
 }
 
-//               selected={this.props.selectedItem["id"] == item.id ? true : false}
-
 class SearchResultList extends React.Component {
   render() {
     return (
@@ -40,6 +38,7 @@ class SearchResultList extends React.Component {
                 this.props.dispatch(setSelectedItem(item));
               }}
               key={"search-items" + this.props.selectedItem["id"] + "-" + idx}
+              selected={this.props.selectedItem["id"] == item.id ? true : false}
             >
               <ListItemGraphic icon={<Icon size={56} name={item.format} />} />
               <ListItemText>

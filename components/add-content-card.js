@@ -11,7 +11,6 @@ export default connect(state => state)(
         <Grid>
           <GridCell span="9">
             {this.props.contentSpinner ? <p>Searching...</p> : null}
-            <h3>{this.props.content.title}</h3>
             {this.props.content.authors
               ? this.props.content.authors.join(", ")
               : null}
