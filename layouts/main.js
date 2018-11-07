@@ -62,13 +62,24 @@ export default connect(state => state)(
             <TopAppBar>
               <TopAppBarRow>
                 <TopAppBarSection>
-                  <TopAppBarNavigationIcon
-                    onClick={() => {
-                      console.log("they clicked it!");
-                    }}
-                    icon="menu"
-                  />
                   <Logo size="small" />
+                </TopAppBarSection>
+                <TopAppBarSection alignEnd>
+                  <TopAppBarActionItem aria-label="Download" alt="Download">
+                    file_download
+                  </TopAppBarActionItem>
+                  <TopAppBarActionItem
+                    aria-label="Print this page"
+                    alt="Print this page"
+                  >
+                    print
+                  </TopAppBarActionItem>
+                  <TopAppBarActionItem
+                    aria-label="Bookmark this page"
+                    alt="Bookmark this page"
+                  >
+                    bookmark
+                  </TopAppBarActionItem>
                 </TopAppBarSection>
               </TopAppBarRow>
             </TopAppBar>
