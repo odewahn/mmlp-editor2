@@ -1,6 +1,8 @@
 /* layouts/Main.js */
 
 import Head from "next/head";
+import Router from "next/router";
+
 import { ThemeProvider } from "@rmwc/theme";
 import {
   TopAppBar,
@@ -65,20 +67,19 @@ export default connect(state => state)(
                   <Logo size="small" />
                 </TopAppBarSection>
                 <TopAppBarSection alignEnd>
-                  <TopAppBarActionItem aria-label="Download" alt="Download">
-                    file_download
+                  <TopAppBarActionItem
+                    aria-label="Build a list"
+                    alt="Build your list"
+                    onClick={() => Router.push("/")}
+                  >
+                    dashboard
                   </TopAppBarActionItem>
                   <TopAppBarActionItem
-                    aria-label="Print this page"
-                    alt="Print this page"
+                    aria-label="Metadata"
+                    alt="Enter Metadata"
+                    onClick={() => Router.push("/metadata")}
                   >
-                    print
-                  </TopAppBarActionItem>
-                  <TopAppBarActionItem
-                    aria-label="Bookmark this page"
-                    alt="Bookmark this page"
-                  >
-                    bookmark
+                    build
                   </TopAppBarActionItem>
                 </TopAppBarSection>
               </TopAppBarRow>

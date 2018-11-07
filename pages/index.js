@@ -6,6 +6,7 @@ import Layout from "../layouts/main";
 
 import SearchBar from "@oreillymedia/design-system/SearchBar";
 import { Grid, GridCell, GridInner } from "@rmwc/grid";
+import { TextField, TextFieldIcon, TextFieldHelperText } from "@rmwc/textfield";
 
 import VideoPlayer from "../components/video-player";
 import AddContentCard from "../components/add-content-card";
@@ -23,12 +24,8 @@ export default connect(state => state)(
     constructor(props) {
       super(props);
       this.state = {
-        selectorOpen: false,
         query: ""
       };
-    }
-    handleChange(k, v) {
-      this.setState({ [k]: v });
     }
 
     render() {
@@ -37,8 +34,8 @@ export default connect(state => state)(
           <Grid>
             <GridCell span="5">
               <SearchBar
-                onAutocomplete={x => {
-                  this.handleChange("query", x);
+                onAutocomplete={e => {
+                  this.setState({ query: e });
                 }}
                 onSearch={() => {
                   this.props.dispatch(fetchSOLRWorks(this.state.query));
