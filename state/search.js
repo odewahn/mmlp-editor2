@@ -7,6 +7,7 @@ import "isomorphic-unfetch";
 
 export const INITIAL_STATE = {
   loggedIn: true,
+  forceRefresh: 0.0,
   kalturaPartnerId: "1926081",
   kalturaUiConfId: "42930101",
   kalturaSession:
@@ -16,7 +17,8 @@ export const INITIAL_STATE = {
   spinner: false,
   segments: [],
   errorMessage: null,
-  content: {}
+  content: {},
+  segments: []
 };
 
 /*********************************************************************
@@ -64,10 +66,26 @@ export function addSegment(val) {
     const x = getState().segments;
     x.push(val);
     dispatch(setSearchField("segments", x));
+    dispatch(setSearchField("forceRefresh", Math.random()));
+  };
+}
+
+export function deleteSegment(val) {
+  return (dispatch, getState) => {
+    var retVal = [];
+    for (var i = getState().segments.length - 1; i >= 0; i--) {
+      if (getState().segments[i].id != val.id) {
+        retVal.push(getState().segments[i]);
+      }
+    }
+    dispatch(setSearchField("segments", retVal));
   };
 }
 
 export function segmentInSelectedSegments(s, segments) {
+  if (!s.natural_key) {
+    return false;
+  }
   var key = s.natural_key.join("-");
   var retVal = false;
   segments.map(segment => {

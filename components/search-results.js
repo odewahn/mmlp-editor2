@@ -20,25 +20,28 @@ import {
   setSelectedItem,
   fetchWorks,
   setErrorMessage,
-  fetchSOLRContent
+  fetchSOLRContent,
+  segmentInSelectedSegments
 } from "../state/search";
 
 function safeIterator(x) {
   return x ? x : [];
 }
 
+//
+
 class SearchResultList extends React.Component {
   render() {
     return (
       <div style={{ maxHeight: "75vh", overflowY: "auto" }}>
-        <List twoLine>
+        <List twoLine dorefresh={this.props.forceRefresh}>
           {safeIterator(this.props.results).map((item, idx) => (
             <ListItem
               onClick={() => {
                 this.props.dispatch(setSelectedItem(item));
               }}
-              key={"search-items" + this.props.selectedItem["id"] + "-" + idx}
               selected={this.props.selectedItem["id"] == item.id ? true : false}
+              key={"search-items" + this.props.selectedItem["id"]}
             >
               <ListItemGraphic icon={<Icon size={56} name={item.format} />} />
               <ListItemText>
@@ -47,7 +50,15 @@ class SearchResultList extends React.Component {
                   {item.chapter_title}
                 </ListItemSecondaryText>
               </ListItemText>
-              <ListItemMeta icon={<Icon name="chevron-right" />} />
+              <ListItemMeta
+                icon={
+                  segmentInSelectedSegments(item, this.props.segments) ? (
+                    <Icon name="checkmark" />
+                  ) : (
+                    <Icon name="chevron-right" />
+                  )
+                }
+              />
             </ListItem>
           ))}
         </List>

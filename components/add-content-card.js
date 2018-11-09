@@ -7,6 +7,9 @@ import { CircularProgress } from "@rmwc/circular-progress";
 
 import { connect } from "react-redux";
 
+// Imported Actions
+import { addSegment } from "../state/search";
+
 export default connect(state => state)(
   class AddContentCard extends React.Component {
     render() {
@@ -18,6 +21,7 @@ export default connect(state => state)(
                 <Fab
                   icon="add"
                   onClick={() => {
+                    this.props.dispatch(addSegment(this.props.content));
                     console.log(this.props.content);
                   }}
                 />
