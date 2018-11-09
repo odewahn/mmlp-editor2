@@ -61,7 +61,6 @@ export default connect(state => state)(
     render() {
       return (
         <div>
-          {this.props.searchSpinner ? <p>Searching...</p> : null}
           <SearchResultList
             results={this.props.results["results"]}
             {...this.props}

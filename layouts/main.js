@@ -14,6 +14,7 @@ import {
 } from "@rmwc/top-app-bar";
 
 import Logo from "@oreillymedia/design-system/Logo";
+import { LinearProgress } from "@rmwc/linear-progress";
 
 import React, { Component } from "react";
 
@@ -68,26 +69,34 @@ export default connect(state => state)(
                 </TopAppBarSection>
                 <TopAppBarSection alignEnd>
                   <TopAppBarActionItem
-                    aria-label="Build a list"
-                    alt="Build your list"
+                    aria-label="Create a path"
+                    alt="Create path"
                     onClick={() => Router.push("/")}
                   >
                     dashboard
                   </TopAppBarActionItem>
                   <TopAppBarActionItem
-                    aria-label="Metadata"
-                    alt="Enter Metadata"
-                    onClick={() => Router.push("/metadata")}
+                    aria-label="Select segments"
+                    alt="Select segments"
+                    onClick={() => Router.push("/segment-search")}
                   >
-                    build
+                    search
                   </TopAppBarActionItem>
                 </TopAppBarSection>
               </TopAppBarRow>
             </TopAppBar>
 
             <main>
-              <div style={{ height: "64px" }} />
-              {this.props.children}
+              <div style={{ height: "66px" }} />
+              <LinearProgress
+                determinate={false}
+                closed={!this.props.spinner}
+              />
+              {this.props.loggedIn ? (
+                this.props.children
+              ) : (
+                <p>Fuck off, anonymous user!</p>
+              )}
             </main>
           </ThemeProvider>
         </span>

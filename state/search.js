@@ -6,14 +6,14 @@ import "isomorphic-unfetch";
 *********************************************************************/
 
 export const INITIAL_STATE = {
+  loggedIn: true,
   kalturaPartnerId: "1926081",
   kalturaUiConfId: "42930101",
   kalturaSession:
     "djJ8MTkyNjA4MXzSqcD0rx6y_DTaI28DqO7Hx1delpOzaT8yXHOtSpigu5YYQOTClfKSgMxgHp2MNmg92a7IgFdgfhrntgPIlBqANOKTQ1wxHxoaazk7hAEX0w==",
   results: [],
   selectedItem: {},
-  searchSpinner: false,
-  contentSpinner: false,
+  spinner: false,
   segments: [],
   errorMessage: null,
   content: {}
@@ -144,18 +144,18 @@ export function fetchSOLRWorks(query) {
       indent: "true",
       fq: 'format:("book" or "video")'
     };
-    dispatch(setSearchField("searchSpinner", true));
+    dispatch(setSearchField("spinner", true));
     dispatch(
       fetchFromAPI(
         "http://localhost:3000",
         "/search",
         q,
         json => {
-          dispatch(setSearchField("searchSpinner", false));
+          dispatch(setSearchField("spinner", false));
           dispatch(setSearchField("results", json["response"]["docs"]));
         },
         err => {
-          dispatch(setSearchField("searchSpinner", false));
+          dispatch(setSearchField("spinner", false));
           dispatch(setSearchField("errorMessage", err));
         }
       )
@@ -170,21 +170,20 @@ export function fetchSOLRContent(query) {
       wt: "json",
       indent: "true"
     };
-    dispatch(setSearchField("contentSpinner", true));
-
+    dispatch(setSearchField("spinner", true));
     dispatch(
       fetchFromAPI(
         "http://localhost:3000",
         "/search",
         q,
         json => {
-          dispatch(setSearchField("contentSpinner", false));
+          dispatch(setSearchField("spinner", false));
           if (json["response"]["docs"].length > 0) {
             dispatch(setSearchField("content", json["response"]["docs"][0]));
           }
         },
         err => {
-          dispatch(setSearchField("contentSpinner", false));
+          dispatch(setSearchField("spinner", false));
           dispatch(setSearchField("errorMessage", err));
         }
       )

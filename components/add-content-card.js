@@ -12,36 +12,33 @@ export default connect(state => state)(
     render() {
       return (
         <Grid>
-          <GridCell span="12">
-            {this.props.contentSpinner ? <p>Searching...</p> : null}
-          </GridCell>
           <GridCell span="2">
             {Object.keys(this.props.content).length > 0 ? (
-              <Fab
-                icon="add"
-                onClick={() => {
-                  console.log(this.props.content);
-                }}
-              />
+              <div style={{ top: "50%" }}>
+                <Fab
+                  icon="add"
+                  onClick={() => {
+                    console.log(this.props.content);
+                  }}
+                />
+              </div>
             ) : null}
           </GridCell>
           <GridCell span="10">
-            <div style={{ padding: "10px" }}>
-              {this.props.content.chapter_title ? (
-                <h4>{this.props.content.chapter_title}</h4>
-              ) : null}
-              {this.props.content.authors
-                ? this.props.content.authors.join(", ")
-                : null}
-              {this.props.content.title ? " (" : null}
-              {this.props.content.publishers
-                ? this.props.content.publishers.join(", ")
-                : null}
-              {this.props.content.issued
-                ? ", " + this.props.content.issued.substring(0, 10)
-                : null}
-              {this.props.content.title ? ")" : null}
-            </div>
+            {this.props.content.chapter_title ? (
+              <h4>{this.props.content.chapter_title}</h4>
+            ) : null}
+            {this.props.content.authors
+              ? this.props.content.authors.join(", ")
+              : null}
+            {this.props.content.title ? " (" : null}
+            {this.props.content.publishers
+              ? this.props.content.publishers.join(", ")
+              : null}
+            {this.props.content.issued
+              ? ", " + this.props.content.issued.substring(0, 10)
+              : null}
+            {this.props.content.title ? ")" : null}
           </GridCell>
         </Grid>
       );
