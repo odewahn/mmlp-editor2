@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import SearchBar from "@oreillymedia/design-system/SearchBar";
 import Icon from "@oreillymedia/design-system/Icon";
+import { SortableContainer, SortableElement } from "react-sortable-hoc";
 
 import {
   List,
@@ -20,40 +21,55 @@ function safeIterator(x) {
   return x ? x : [];
 }
 
+const SortableItem = SortableElement(({ value }) => {
+  return (
+    <ListItem>
+      <ListItemGraphic icon={<Icon size={56} name={value.format} />} />
+      <ListItemText>
+        <ListItemPrimaryText>{value.title}</ListItemPrimaryText>
+        <ListItemSecondaryText>{value.chapter_title}</ListItemSecondaryText>
+      </ListItemText>
+      <ListItemMeta
+        icon={
+          <Icon
+            onClick={() => {
+              this.props.dispatch(deleteSegment(value));
+              console.log("they wanna delete", value);
+            }}
+            name="close-x"
+          />
+        }
+      />
+    </ListItem>
+  );
+});
+
+const SortableList = SortableContainer(({ items }) => {
+  return (
+    <List twoLine>
+      {safeIterator(items).map((value, index) => (
+        <SortableItem key={`item-${index}`} index={index} value={value} />
+      ))}
+    </List>
+  );
+});
+
 export default connect(state => state)(
   class SelectedSegments extends React.Component {
+    /*
+    this.setState({
+      items: arrayMove(this.state.items, oldIndex, newIndex),
+    });
+    */
+
     render() {
       return (
-        <div style={{ maxHeight: "75vh", overflowY: "auto" }}>
-          <List twoLine>
-            {safeIterator(this.props.segments).map((item, idx) => (
-              <ListItem
-                key={
-                  "selected-items" + this.props.selectedItem["id"] + "-" + idx
-                }
-              >
-                <ListItemGraphic icon={<Icon size={56} name={item.format} />} />
-                <ListItemText>
-                  <ListItemPrimaryText>{item.title}</ListItemPrimaryText>
-                  <ListItemSecondaryText>
-                    {item.chapter_title}
-                  </ListItemSecondaryText>
-                </ListItemText>
-                <ListItemMeta
-                  icon={
-                    <Icon
-                      onClick={() => {
-                        this.props.dispatch(deleteSegment(item));
-                        console.log("they wanna delete", item);
-                      }}
-                      name="close-x"
-                    />
-                  }
-                />
-              </ListItem>
-            ))}
-          </List>
-        </div>
+        <SortableList
+          items={this.props.segments}
+          onSortEnd={(oldIndex, newIndex) => {
+            console.log("they're moving", oldIndex, newIndex);
+          }}
+        />
       );
     }
   }
