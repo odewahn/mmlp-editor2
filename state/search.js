@@ -1,5 +1,6 @@
 import buildUrl from "build-url";
 import "isomorphic-unfetch";
+import { arrayMove } from "react-sortable-hoc";
 
 /*********************************************************************
 ||  Define the initial state
@@ -67,6 +68,14 @@ export function addSegment(val) {
     x.push(val);
     dispatch(setSearchField("segments", x));
     dispatch(setSearchField("forceRefresh", Math.random()));
+  };
+}
+
+export function moveSegment(val) {
+  return (dispatch, getState) => {
+    const x = getState().segments;
+    var newOrder = arrayMove(x, val.oldIndex, val.newIndex);
+    dispatch(setSearchField("segments", newOrder));
   };
 }
 

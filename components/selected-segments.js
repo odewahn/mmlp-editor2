@@ -15,7 +15,7 @@ import {
   ListItemMeta
 } from "@rmwc/list";
 
-import { deleteSegment } from "../state/search";
+import { deleteSegment, moveSegment } from "../state/search";
 
 function safeIterator(x) {
   return x ? x : [];
@@ -56,18 +56,13 @@ const SortableList = SortableContainer(({ items }) => {
 
 export default connect(state => state)(
   class SelectedSegments extends React.Component {
-    /*
-    this.setState({
-      items: arrayMove(this.state.items, oldIndex, newIndex),
-    });
-    */
-
     render() {
       return (
         <SortableList
           items={this.props.segments}
-          onSortEnd={(oldIndex, newIndex) => {
-            console.log("they're moving", oldIndex, newIndex);
+          dorefresh={this.props.forceRefresh}
+          onSortEnd={x => {
+            this.props.dispatch(moveSegment(x));
           }}
         />
       );
