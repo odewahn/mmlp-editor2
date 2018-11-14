@@ -12,14 +12,39 @@ export const INITIAL_STATE = {
   kalturaPartnerId: "1926081",
   kalturaUiConfId: "42930101",
   kalturaSession:
-    "djJ8MTkyNjA4MXzSqcD0rx6y_DTaI28DqO7Hx1delpOzaT8yXHOtSpigu5YYQOTClfKSgMxgHp2MNmg92a7IgFdgfhrntgPIlBqANOKTQ1wxHxoaazk7hAEX0w==",
+    "djJ8MTkyNjA4MXyrFJY5aeF4_jaGkR-6MUgy_y1tpdJZ57i-aLyX82mQpLSW-S7LV7pMX70LPov7z-2RSa1YFjJORiFnSvID26EryMN69unzFbRaJ7faVHMFqQ==",
   results: [],
   selectedItem: {},
   spinner: false,
   segments: [],
   errorMessage: null,
   content: {},
-  segments: []
+  segments: [],
+  contentMetadata: {
+    fpi: "1234567890123",
+    format: "video",
+    isbn: "9781491901885",
+    title: "",
+    language: "en",
+    edition: "2",
+    authorGroup: [],
+    pagenums: "",
+    rights: "Copyright © 2010 O'Reilly Media, Inc.",
+    pubdate: "April 16, 2015",
+    copyright_year: "2018",
+    publisher: {
+      publishername: "O'Reilly Media",
+      imprintname: ""
+    },
+    safari_classification: "course",
+    description_short: "",
+    msrp: "29.95",
+    points: "0",
+    graphic: {
+      role: "large-cover",
+      fileref: "FPID.jpg"
+    }
+  }
 };
 
 /*********************************************************************

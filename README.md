@@ -188,3 +188,35 @@ Here it is using cURL:
 curl -H "Authentication:  eyJhbGciOiAiUlMyNTYifQ.eyJhY2N0cyI6IFsiMTllOTM4NmUtYTk2MC00NDcwLTk3MTItNGVjMDIzODRlM2ZmIiwgImE2ZmQzMDcyLWIxOTMtNGIyOC05NjZhLTUxMDE2OGExZTEwYiJdLCAiZWlkcyI6IHsiaGVyb24iOiAiYTMzNDNjMTEtMjExNi00ZDA3LWIyMzUtYWE3YzE2YTAxNGQ2IiwgImphbnJhaW4iOiAiMTRlYjRhZTEtY2QwYi00NDM1LWEwOTEtNzFlZmQ1YTA3OTRkIn0sICJleHAiOiAxNTQwNTk2OTUxLCAiaW5kaXZpZHVhbCI6IHRydWUsICJwZXJtcyI6IHsiYWNhZG0iOiAidiIsICJhcGlkYyI6ICJ2IiwgImNuZnJjIjogInYiLCAiY3NzdGQiOiAidiIsICJlcHVicyI6ICJ2IiwgImxycHRoIjogInYiLCAibHZ0cmciOiAidiIsICJvcmlvbCI6ICJ2IiwgInBseWxzIjogInYiLCAidXNhZ2UiOiAiYyIsICJ1c3JwZiI6ICJjZXYiLCAidmlkZW8iOiAidiJ9LCAic3ViIjogImFlYzAwYTI0LTc3YjAtNGNiYy1iODUwLWRjOGFjMTRkN2U0NCJ9.kzbqxAcPvKhnEGqBQvK1kUUkUoWZJWj--ZN2F1DasEun2rWwFH2VOB6Gze4ewowDQzA_3T2aSLAHixD4I07ucoeMCx856toM1WBIwee6zMRy3zmDESHpRC_kSlTuaQ8nLpGT0h6lSv9fXz2UaqRmj7ymKSi-9JisgGDt77IpgCI" \
 https://www.safaribooksonline.com/api/v1/player/kaltura_session/
 ```
+
+# Accessing the Portal
+
+Docs
+
+- https://cdn.oreillystatic.com/safari-submission-guides/book/book.html
+- https://cdn.oreillystatic.com/safari-submission-guides/video/book.html
+- https://cdn.oreillystatic.com/safari-submission-guides/portal/book.html
+- https://intranet.oreilly.com/confluence/pages/viewpage.action?pageId=37031556 (for MMLPs)
+
+NB: IMPORTANTSetting
+
+Set status to experimental when you're testing the upload!
+
+There is a `<safari-classification>` tag in the metadata (https://cdn.oreillystatic.com/safari-submission-guides/video/book.html#safari-classification-q8swFVhd)
+
+add `<class scheme="safari-classification">experimental</class>` to that family, ingestion knows not to kick the thing live. It will put it on the QA site, instead!
+
+## Uploading a metadata file
+
+FTP using the hostname "cowbird.seb.safaribooks.com".
+safarijv/gibson34
+
+## Kick off the ingestion
+
+Get access to
+
+https://www.qa.safariflow.com/admin/
+
+you can manually kick it into QA from here:
+
+https://www.qa.safariflow.com/admin/ingestion/

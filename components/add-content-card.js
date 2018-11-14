@@ -15,20 +15,24 @@ export default connect(state => state)(
     render() {
       return (
         <Grid>
-          <GridCell span="2">
+          <GridCell span="4">
             {Object.keys(this.props.content).length > 0 ? (
-              <div style={{ top: "50%" }}>
-                <Fab
-                  icon="add"
-                  onClick={() => {
-                    this.props.dispatch(addSegment(this.props.content));
-                    console.log(this.props.content);
-                  }}
-                />
-              </div>
+              <Button
+                onClick={() => {
+                  this.props.dispatch(addSegment(this.props.content));
+                  console.log(this.props.content);
+                }}
+                disabled={
+                  this.props.selectedItem["id"] == this.props.content.id
+                    ? true
+                    : false
+                }
+              >
+                Add
+              </Button>
             ) : null}
           </GridCell>
-          <GridCell span="10">
+          <GridCell span="8">
             {this.props.content.chapter_title ? (
               <h4>{this.props.content.chapter_title}</h4>
             ) : null}

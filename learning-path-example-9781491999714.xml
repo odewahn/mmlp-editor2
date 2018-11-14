@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<safarimeta fpi="9781491999714" format="playlist">
+  <title>Learning Path: Design Thinking, Lean, and Agile</title>
+  <isbn>9781491999707</isbn>
+  <pagenums>0</pagenums>
+  <edition>1</edition>
+  <authorgroup>
+          <author>
+                <firstname>Thomas</firstname>
+                <surname>Ask</surname>
+          </author>
+    <author>
+      <firstname>Maria</firstname>
+      <surname>Seaver</surname>
+    </author>
+    <author>
+      <firstname>Jennifer</firstname>
+      <surname>Greene</surname>
+    </author>
+    <author>
+      <firstname>Andrew</firstname>
+      <surname>Stellman</surname>
+    </author>
+    <author>
+      <firstname>Jeff</firstname>
+      <surname>Gothelf</surname>
+    </author>
+    <author>
+      <firstname>Josh</firstname>
+      <surname>Seiden</surname>
+    </author>
+    <author>
+      <firstname>Jordan</firstname>
+      <surname>Shade</surname>
+    </author>
+    
+  </authorgroup>
+  <pubdate>May 9, 2018</pubdate>
+  <publisher>
+    <publishername>O'Reilly Media, Inc.</publishername>
+    <imprintname>O'Reilly Media</imprintname>
+  </publisher>
+  <description-short><div><p>To develop products for today’s increasingly sophisticated and demanding users, in a dynamic technological landscape, you and your organization need to be nimble and fast in reacting to ever-changing market trends. To stay on top, more and more product development teams are adopting Design Thinking, Lean, and Agile paradigms to help them become more responsive to their customers’ needs. Each of these mindsets brings its own kind of value to different phases of the product development lifecycle. And even though their origins differ—industrial design, manufacturing, and software development, respectively—the philosophies, ideas, and characteristics are complementary to and compatible with one another.</p>
+    
+    <p>In this learning path, which is intended for product designers, product managers, design managers, UX engineers, as well as CEOs, and CTOs, you’ll learn about techniques for adopting Design Thinking, Lean, and Agile methodologies in your company or organization, and look at tools that you can use to measure your progress and results. You’ll see how by fully embracing these mindsets, your group will quickly reap the benefits of being a more competitive, efficient, and customer-centric unit.</p>
+    
+    <p><b>What you’ll learn—and how you can apply it</b></p>
+    <ul>
+      <li>Learn how to teach and measure the adoption of Design Thinking in an organization</li>
+      <li>Learn the most popular Agile methods for application development and maintenance</li>
+      <li>Learn how Agile, Lean, and Design Thinking can help your company or organization reduce risk</li>
+    </ul>
+    
+    <p><b>This learning path is for you because…</b></p>
+    <ul>
+      <li>You’re a designer, product designer, or product manager who wants to explore ways to make your team more flexible, responsive, and able to rapidly effect changes in your product designs</li>   
+      <li>You’re a CEO or CTO looking to build and manage design teams that will more effectively produce the products your customers want</li>
+    </ul>
+    
+    <p><b>Prerequisites:</b></p>
+    <ul>
+      <li>You should be familiar with product design concepts and general practices (although it’s not required)</li>
+    </ul>
+    
+    <p><b>Materials or downloads needed in advance:</b> None</p></div></description-short>
+  <msrp>59.99</msrp>
+  <!-- ToDo: What is the RC logic for video -->
+      <points royalty="all">1</points>
+  <graphic role="large-cover" fileref="9781491999714.jpg"/>
+  <relatedfiles>
+  </relatedfiles>
+  <safari-classification>
+    <class scheme="safari-classification">learning-path</class>
+    
+  </safari-classification>
+  <referenced-content>
+    <part linkid="9781491999714-part0" title="Design Thinking, Lean, and Agile"><description/></part>
+    
+    <video-clip linkid="9781491959701-video248741" preview="no" title="Introduction to Design Thinking">Maria Seaver offers an introduction to design thinking, a process that balances user needs, business objectives, and technology constraints. Maria outlines design thinking's five key areas - empathy building, problem framing, ideation, prototyping, and validation - and explains how they help teams learn about users, discover opportunities, solve problems, meet needs, and test their assumptions.<description/><intro>Maria Seaver of Springbox offers an introduction to Design Thinking, a process that balances user needs, business objectives, and technology constraints.</intro><outro>Now that you've learned a bit about Design Thinking, it's time to dig deeper into Agile and Lean. Next up, learn what it means to go Agile.</outro></video-clip>
+    
+    <book-chapter linkid="9781449363819-/ch01.html" preview="no" title="Learning Agile">
+      <description/>
+      <intro>Andrew Stellman and Jenny Greene introduce the fundamentals of Agile and explain what the shift to the Agile mindset entails.</intro>
+      <outro>With the fundamentals of Agile under your belt, learn from Lean UX experts how to apply Lean to product development to insure you build products your customers want.</outro>
+        
+        
+      
+    </book-chapter>
+    
+    <video-clip linkid="9781491983690-video308614" preview="no" title="An Introduction to Lean UX Concepts">No matter what business you're in, if you seek to scale or compete at scale in the 21st century, you're in the software business first. Software, today, is continuous. This presents an unprecedented opportunity to build a continuous conversation with our customers. However, this way of deploying software is not without risk. Agile and lean and design thinking are meant to reduce risk. They can work well together but have to be practiced within a balanced, cross-functional team. It's within these teams that discovery and delivery work together.<description/><intro>Best selling Lean UX authors Jeff Gothelf and Josh Seiden introduce the basic concepts of Lean UX.</intro><outro>Now that you've learned how to think in Lean terms, learn how to take Lean across the organization to save time and reduce waste.</outro></video-clip>
+    
+    <book-chapter linkid="9781449363819-/ch08.html" preview="no" title="Lean, Eliminating Waste, and Seeing the Whole">
+      <description/>
+      <intro>Andrew Stellman and Jenny Greene explain the principles of Lean</intro>
+      <outro>With a solid understanding of Lean, next you'll learn how to apply Design Thinking within your organization and how to measure the impact it has on your business.</outro>
+        
+        
+      </book-chapter>
+    
+    <video-clip linkid="9781491976180-video302859" preview="no" title="Measuring the Adoption of Design Thinking">Creating a culture around design thinking in any company requires education, evaluation, and iteration. IBM has educated and activated 10,000+ of its employees in design thinking. . .but how do you know if it's having an impact? Using IBM as a case study, Jordan Shade explains how to measure the adoption of this new way of working, including common blockers and essential enablers.<description/><intro>IBM's Jordan Shade shares how to measure the business impact of Design Thinking.</intro></video-clip>
+  </referenced-content>
+  <tableofcontents fpi="9781491999714">
+    <part id="9781491999714-part0">
+      <chapter id="9781491959701-video248741"/>
+    
+      <chapter id="9781449363819-/ch01.html"/>
+   
+      <chapter id="9781491983690-video308614"/>
+   
+      <chapter id="9781449363819-/ch08.html"/>
+    
+      <chapter id="9781491976180-video302859"/>
+    </part>
+  </tableofcontents>
+  <promote>update</promote>
+</safarimeta>

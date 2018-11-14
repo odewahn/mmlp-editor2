@@ -21,6 +21,20 @@ function safeIterator(x) {
   return x ? x : [];
 }
 
+/*
+<ListItemMeta
+  icon={
+    <Icon
+      index={999}
+      onClick={() => {
+        this.props.dispatch(deleteSegment(value));
+        console.log("they wanna delete", value);
+      }}
+      name="close-x"
+    />
+  }
+/>
+*/
 const SortableItem = SortableElement(({ value }) => {
   return (
     <ListItem>
@@ -29,17 +43,6 @@ const SortableItem = SortableElement(({ value }) => {
         <ListItemPrimaryText>{value.title}</ListItemPrimaryText>
         <ListItemSecondaryText>{value.chapter_title}</ListItemSecondaryText>
       </ListItemText>
-      <ListItemMeta
-        icon={
-          <Icon
-            onClick={() => {
-              this.props.dispatch(deleteSegment(value));
-              console.log("they wanna delete", value);
-            }}
-            name="close-x"
-          />
-        }
-      />
     </ListItem>
   );
 });
@@ -48,7 +51,7 @@ const SortableList = SortableContainer(({ items }) => {
   return (
     <List twoLine>
       {safeIterator(items).map((value, index) => (
-        <SortableItem key={`item-${index}`} index={index} value={value} />
+        <SortableItem key={`item-${index}`} value={value} index={index} />
       ))}
     </List>
   );

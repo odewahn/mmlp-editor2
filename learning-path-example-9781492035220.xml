@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<safarimeta fpi="9781492035220" format="playlist">
+  <title>Learning Path: Designing Event-Driven Systems</title>
+  <isbn>9781492035213</isbn>
+  <pagenums>0</pagenums>
+  <edition>1</edition>
+  <authorgroup>
+          <author>
+                <firstname>Neal</firstname>
+                <surname>Ford</surname>
+            <authorblurb url="http://www.oreillynet.com/pub/au/2632"/>
+          </author>
+          <author>
+                <firstname>Mark</firstname>
+                <surname>Richards</surname>
+            <authorblurb url="http://www.oreillynet.com/pub/au/3609"/>
+          </author>
+          <author>
+                <firstname>Chris</firstname>
+                <surname>Richardson</surname>
+            <authorblurb url="http://www.oreillynet.com/pub/au/2296"/>
+          </author>
+          <author>
+                <firstname>Jonas</firstname>
+                <surname>Bonér</surname>
+            <authorblurb url="http://www.oreilly.com/pub/au/7069"/>
+          </author>
+  </authorgroup>
+  <pubdate>July 31, 2018</pubdate>
+  <publisher>
+    <publishername>O'Reilly Media, Inc.</publishername>
+    <imprintname>O'Reilly Media</imprintname>
+  </publisher>
+  <description-short><div><p>With the growing popularity of microservices architecture, the exponential proliferation of the Internet of Things (IoT), and an increasing need for highly scalable applications, event-driven architecture (EDA) has become a very popular mechanism to support these technologies. EDA is a popular distributed asynchronous architecture model that is also highly adaptable and can be used for small applications as well as large, complex ones. At its core are highly decoupled, single-purpose event-processing components that asynchronously receive and process events.</p>
+<p>In this learning path designed for intermediate- to advanced-level software architects and developers, you are first introduced to the broad concepts and principles of EDA. Next, you&#8217;ll look at specific implementation patterns and how you can apply them in your systems. You&#8217;ll then examine how to manage data consistency, and then finish up by learning how to get started building EDA at scale. By the end of this learning path, you&#8217;ll be ready to begin using event-driven principles and patterns in your own applications.</p>
+<p><b>What you&#8217;ll learn&#8212;and how you can apply it</b></p>
+<ul><li>How to use event-driven principles and patterns in your own systems</li><li>How to manage data consistency in EDAs</li><li>How to get started building event-driven architecture at scale</li></ul>
+<p><b>This learning path is for you because&#8230;</b></p>
+<ul><li>You're an experienced software architect or developer building medium- to large- scale enterprise applications, and you need to begin using event-driven principles and patterns for your solutions</li><li>You're tasked with creating a highly scalable system and want to see if EDA might be the optimal approach for your system</li></ul>
+<p><b>Prerequisites:</b> None</p>
+<p><b>Materials or downloads needed in advance:</b> None</p></div></description-short>
+  <msrp>17.99</msrp>
+  <!-- ToDo: What is the RC logic for video -->
+      <points royalty="all">1</points>
+  <graphic role="large-cover" fileref="9781492035220.jpg"/>
+  <relatedfiles>
+  </relatedfiles>
+      <safari-classification>
+        <class scheme="safari-classification">learning-path</class>
+      </safari-classification>
+  <referenced-content>
+    <part linkid="9781492035220-part0" title="Designing Event-Driven Systems"><description/></part>
+    <video-clip linkid="9781491998991-video316996" preview="no" title="Understanding Event-Driven Architecture"><description/></video-clip>
+    <book-chapter linkid="9781491971437-/ch02.html" preview="no" title="Event-Driven Architecture Patterns"><description/></book-chapter>
+    <video-clip linkid="9781491944165-video239922" preview="no" title="Using Events to Maintain Data Consistency"><description/></video-clip>
+    <book-chapter linkid="9781491994368-/ch04.html" preview="no" title="Events-First Domain-Driven Design"><description/></book-chapter>
+  </referenced-content>
+  <tableofcontents fpi="9781492035220">
+    <part id="9781492035220-part0">
+      <chapter id="9781491998991-video316996"/>
+      <chapter id="9781491971437-/ch02.html"/>
+      <chapter id="9781491944165-video239922"/>
+      <chapter id="9781491994368-/ch04.html"/>
+    </part>
+  </tableofcontents>
+  <promote>update</promote>
+</safarimeta>
