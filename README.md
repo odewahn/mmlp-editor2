@@ -11,6 +11,8 @@
 
 - [React Material Web Components](https://jamesmfriedman.github.io/rmwc/) library
 
+* https://github.com/zeit/pkg -- package a node app as a standalone binary [?]
+
 # Authentication
 
 This is lame, but you first have to get a session token from

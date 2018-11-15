@@ -59,6 +59,10 @@ export default function(state = INITIAL_STATE, action) {
   }
 }
 
+export function safeIterator(x) {
+  return x ? x : [];
+}
+
 /*********************************************************************
 ||  Actions
 *********************************************************************/
@@ -120,10 +124,10 @@ export function segmentInSelectedSegments(s, segments) {
   if (!s.natural_key) {
     return false;
   }
-  var key = s.natural_key.join("-");
+  var key = safeIterator(s.natural_key).join("-");
   var retVal = false;
-  segments.map(segment => {
-    if (key == segment.natural_key.join("-")) {
+  safeIterator(segments).map(segment => {
+    if (key == safeIterator(segment.natural_key).join("-")) {
       retVal = true;
     }
   });

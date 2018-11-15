@@ -66,21 +66,29 @@ export default connect(state => state)(
               <TopAppBarRow>
                 <TopAppBarSection>
                   <Logo size="small" />
+                  {this.props.title}
                 </TopAppBarSection>
                 <TopAppBarSection alignEnd>
                   <TopAppBarActionItem
-                    aria-label="Create a path"
+                    aria-label="Add content to path"
                     alt="Create path"
                     onClick={() => Router.push("/")}
                   >
-                    dashboard
+                    search
                   </TopAppBarActionItem>
                   <TopAppBarActionItem
-                    aria-label="Select segments"
+                    aria-label="Add content"
                     alt="Select segments"
-                    onClick={() => Router.push("/segment-search")}
+                    onClick={() => Router.push("/edit-path")}
                   >
-                    search
+                    build
+                  </TopAppBarActionItem>{" "}
+                  <TopAppBarActionItem
+                    aria-label="Edit your metadata"
+                    alt="Edit Metadata"
+                    onClick={() => Router.push("/metadata")}
+                  >
+                    dashboard
                   </TopAppBarActionItem>
                 </TopAppBarSection>
               </TopAppBarRow>

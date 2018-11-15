@@ -15,11 +15,7 @@ import {
   ListItemMeta
 } from "@rmwc/list";
 
-import { deleteSegment, moveSegment } from "../state/search";
-
-function safeIterator(x) {
-  return x ? x : [];
-}
+import { deleteSegment, moveSegment, safeIterator } from "../state/search";
 
 /*
 <ListItemMeta
@@ -37,7 +33,11 @@ function safeIterator(x) {
 */
 const SortableItem = SortableElement(({ value }) => {
   return (
-    <ListItem>
+    <ListItem
+      onClick={() => {
+        console.log(value);
+      }}
+    >
       <ListItemGraphic icon={<Icon size={56} name={value.format} />} />
       <ListItemText>
         <ListItemPrimaryText>{value.title}</ListItemPrimaryText>
@@ -49,11 +49,13 @@ const SortableItem = SortableElement(({ value }) => {
 
 const SortableList = SortableContainer(({ items }) => {
   return (
-    <List twoLine>
-      {safeIterator(items).map((value, index) => (
-        <SortableItem key={`item-${index}`} value={value} index={index} />
-      ))}
-    </List>
+    <div style={{ maxHeight: "75vh", overflowY: "auto" }}>
+      <List twoLine>
+        {safeIterator(items).map((value, index) => (
+          <SortableItem key={`item-${index}`} value={value} index={index} />
+        ))}
+      </List>
+    </div>
   );
 });
 
@@ -64,6 +66,7 @@ export default connect(state => state)(
         <SortableList
           items={this.props.segments}
           dorefresh={this.props.forceRefresh}
+          pressDelay={200}
           onSortEnd={x => {
             this.props.dispatch(moveSegment(x));
           }}

@@ -106,7 +106,6 @@ export default class VideoPlayer extends Component {
     }
 
     const { referenceId } = this.props;
-    console.log("Old => ", prevProps.referenceId, "    New => ", referenceId);
 
     if (referenceId !== prevProps.referenceId) {
       this.setState({
