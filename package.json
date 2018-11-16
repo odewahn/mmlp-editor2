@@ -12,7 +12,7 @@
     "express": "^4.16.3",
     "isomorphic-unfetch": "^2.1.1",
     "material-components-web": "^0.41.0",
-    "next": "6.1.2",
+    "next": "^7.0.0",
     "next-redux-wrapper": "^2.0.0",
     "node-fetch": "^2.2.0",
     "react": "^16.6.1",
@@ -27,6 +27,7 @@
     "sortablejs": "^1.6.1"
   },
   "devDependencies": {
-    "@oreillymedia/design-system": "^2.0.0"
+    "@oreillymedia/design-system": "^2.0.0",
+    "webpack": "4.23.1"
   }
 }

@@ -4,6 +4,8 @@ import { Grid, GridCell, GridInner } from "@rmwc/grid";
 import { Fab } from "@rmwc/fab";
 import { TextField, TextFieldIcon, TextFieldHelperText } from "@rmwc/textfield";
 
+import { SegmentConsumer } from "../state/segment-provider";
+
 import { connect } from "react-redux";
 
 // Imported Actions
@@ -15,23 +17,19 @@ import {
 
 export default connect(state => state)(
   class EditSegmentMetadata extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        query: ""
-      };
-    }
     render() {
       return (
-        <Grid>
-          <GridCell span="12">
-            <TextField fullwidth disabled placeholder="Link Id" />
-            <br />
-            <TextField fullwidth placeholder="Title" />
-            <br />
-            <TextField textarea fullwidth label="Description" rows="4" />
-          </GridCell>
-        </Grid>
+        <div>
+          <Grid>
+            <GridCell span="12">
+              <TextField fullwidth disabled placeholder="Link Id" />
+              <br />
+              <TextField fullwidth placeholder="Title" />
+              <br />
+              <TextField textarea fullwidth label="Description" rows="4" />
+            </GridCell>
+          </Grid>
+        </div>
       );
     }
   }

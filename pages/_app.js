@@ -3,13 +3,17 @@ import React from "react";
 import withReduxStore from "../state/lib/with-redux-store";
 import { Provider } from "react-redux";
 
+import SegmentProvider from "../state/segment-provider";
+
 class MyApp extends App {
   render() {
     const { Component, pageProps, reduxStore } = this.props;
     return (
       <Container>
         <Provider store={reduxStore}>
-          <Component {...pageProps} />
+          <SegmentProvider>
+            <Component {...pageProps} />
+          </SegmentProvider>
         </Provider>
       </Container>
     );

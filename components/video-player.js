@@ -109,7 +109,7 @@ export default class VideoPlayer extends Component {
 
     if (referenceId !== prevProps.referenceId) {
       this.setState({
-        showHero: hasChildren,
+        showHero: false,
         targetId: props.targetId,
         wid: `_${props.partnerId}`,
         uiconf_id: props.uiConfId,

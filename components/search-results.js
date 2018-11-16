@@ -41,7 +41,7 @@ class SearchResultList extends React.Component {
                 this.props.dispatch(setSelectedItem(item));
               }}
               selected={this.props.selectedItem["id"] == item.id ? true : false}
-              key={"search-items" + this.props.selectedItem["id"]}
+              key={"search-items" + this.props.selectedItem["id"] + "-" + idx}
             >
               <ListItemGraphic icon={<Icon size={56} name={item.format} />} />
               <ListItemText>
