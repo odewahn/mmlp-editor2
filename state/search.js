@@ -9,10 +9,6 @@ import { arrayMove } from "react-sortable-hoc";
 export const INITIAL_STATE = {
   loggedIn: true,
   forceRefresh: 0.0,
-  kalturaPartnerId: "1926081",
-  kalturaUiConfId: "42930101",
-  kalturaSession:
-    "djJ8MTkyNjA4MXyrFJY5aeF4_jaGkR-6MUgy_y1tpdJZ57i-aLyX82mQpLSW-S7LV7pMX70LPov7z-2RSa1YFjJORiFnSvID26EryMN69unzFbRaJ7faVHMFqQ==",
   results: [],
   selectedItem: {},
   spinner: false,

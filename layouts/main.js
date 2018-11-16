@@ -73,23 +73,20 @@ export default connect(state => state)(
                     aria-label="Add content to path"
                     alt="Create path"
                     onClick={() => Router.push("/")}
-                  >
-                    search
-                  </TopAppBarActionItem>
+                    icon="search"
+                  />
                   <TopAppBarActionItem
                     aria-label="Add content"
                     alt="Select segments"
                     onClick={() => Router.push("/edit-path")}
-                  >
-                    build
-                  </TopAppBarActionItem>{" "}
+                    icon="build"
+                  />
                   <TopAppBarActionItem
                     aria-label="Edit your metadata"
                     alt="Edit Metadata"
                     onClick={() => Router.push("/metadata")}
-                  >
-                    dashboard
-                  </TopAppBarActionItem>
+                    icon="dashboard"
+                  />
                 </TopAppBarSection>
               </TopAppBarRow>
             </TopAppBar>
