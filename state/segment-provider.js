@@ -6,12 +6,14 @@ const SegmentContext = React.createContext();
 // Then create a provider Component
 class SegmentProvider extends Component {
   state = {
+    id: "",
     linkId: "99-luft-ballons",
     title: "everyones a super hero",
     description: "everyone is a captain kirk",
     intro: "worry worry organize",
     outro: "99 luft ballons go by"
   };
+
   render() {
     return (
       <SegmentContext.Provider

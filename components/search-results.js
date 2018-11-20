@@ -45,10 +45,8 @@ class SearchResultList extends React.Component {
             >
               <ListItemGraphic icon={<Icon size={56} name={item.format} />} />
               <ListItemText>
-                <ListItemPrimaryText>{item.title}</ListItemPrimaryText>
-                <ListItemSecondaryText>
-                  {item.chapter_title}
-                </ListItemSecondaryText>
+                <ListItemPrimaryText>{item.chapter_title}</ListItemPrimaryText>
+                <ListItemSecondaryText>{item.title}</ListItemSecondaryText>
               </ListItemText>
               <ListItemMeta
                 icon={

@@ -34,16 +34,6 @@ export default class VideoPlayer extends Component {
 
     const hasChildren = React.Children.count(props.children) > 0;
 
-    /*
-    <VideoPlayer
-      targetId="kaltura-player"
-      referenceId={computeKalturaReferenceID(this.props.content)}
-      kalturaPartnerId="1926081"
-      kalturaUiConfId="42930101"
-      kalturaSession="djJ8MTkyNjA4MXyrFJY5aeF4_jaGkR-6MUgy_y1tpdJZ57i-aLyX82mQpLSW-S7LV7pMX70LPov7z-2RSa1YFjJORiFnSvID26EryMN69unzFbRaJ7faVHMFqQ=="
-    />
-*/
-
     this.state = {
       showHero: hasChildren,
       targetId: props.targetId,
@@ -83,48 +73,6 @@ export default class VideoPlayer extends Component {
       }
     };
   }
-
-  /*
-this.state = {
-  showHero: hasChildren,
-  targetId: props.targetId,
-  wid: `_${props.partnerId}`,
-  uiconf_id: props.uiConfId,
-  flashvars: {
-    IframeCustomPluginCss1: CSS_URL,
-    forceHDS: props.forceHDS,
-    autoPlay: props.autoPlay,
-    autoMute: props.autoMute,
-    referenceId: props.referenceId,
-    stretchVideo: props.stretchVideo,
-    "mediaProxy.mediaPlayFrom": props.playFrom,
-    "mediaProxy.preferedFlavorBR":
-      this.getPreferedPlaybackQuality() || props.defaultQuality,
-    disableBitrateCookie: true,
-    playbackRateSelector: {
-      defaultSpeed: this.getPreferedPlaybackRate() || props.defaultSpeed,
-      speeds: props.speeds
-    },
-    sourceSelector: {
-      plugin: true,
-      switchOnResize: false,
-      simpleFormat: true,
-      displayMode: "sizebitrate"
-    },
-    strings: {
-      "ks-FREE_PREVIEW_END": props.previewEndDescription,
-      "ks-FREE_PREVIEW_END_TITLE": props.previewEndTitle
-    }
-  },
-  params: {
-    wmode: "transparent"
-  },
-  readyCallback: playerId => {
-    this.onPlayerReady(playerId);
-  }
-}
-}
-*/
 
   getPreferedPlaybackRate() {
     let preferedPlaybackRate = false;

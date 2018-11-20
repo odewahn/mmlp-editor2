@@ -12,24 +12,67 @@ import { connect } from "react-redux";
 import {
   addSegment,
   segmentInSelectedSegments,
-  safeIterator
+  safeIterator,
+  updateSegment
 } from "../state/search";
 
 export default connect(state => state)(
   class EditSegmentMetadata extends React.Component {
     render() {
       return (
-        <div>
-          <Grid>
-            <GridCell span="12">
-              <TextField fullwidth disabled placeholder="Link Id" />
-              <br />
-              <TextField fullwidth placeholder="Title" />
-              <br />
-              <TextField textarea fullwidth label="Description" rows="4" />
-            </GridCell>
-          </Grid>
-        </div>
+        <SegmentConsumer>
+          {({ state, setField }) => (
+            <Grid>
+              <GridCell span="12">
+                <TextField
+                  fullwidth
+                  placeholder="Title"
+                  value={state.title}
+                  onChange={e => {
+                    setField("title", e.target.value);
+                    this.props.dispatch(updateSegment(state));
+                  }}
+                />
+                <br />
+                <TextField
+                  textarea
+                  fullwidth
+                  label="Description"
+                  value={state.description}
+                  rows="3"
+                  onChange={e => {
+                    setField("description", e.target.value);
+                    this.props.dispatch(updateSegment(state));
+                  }}
+                />
+                <br />
+                <TextField
+                  textarea
+                  fullwidth
+                  label="Intro"
+                  value={state.intro}
+                  rows="3"
+                  onChange={e => {
+                    setField("intro", e.target.value);
+                    this.props.dispatch(updateSegment(state));
+                  }}
+                />
+                <br />
+                <TextField
+                  textarea
+                  fullwidth
+                  label="Outro"
+                  value={state.outro}
+                  rows="3"
+                  onChange={e => {
+                    this.props.dispatch(updateSegment(state));
+                    setField("outro", e.target.value);
+                  }}
+                />
+              </GridCell>
+            </Grid>
+          )}
+        </SegmentConsumer>
       );
     }
   }

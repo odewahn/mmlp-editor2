@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import SearchBar from "@oreillymedia/design-system/SearchBar";
 import Icon from "@oreillymedia/design-system/Icon";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
+import { SegmentConsumer } from "../state/segment-provider";
 
 import {
   List,
@@ -33,17 +34,26 @@ import { deleteSegment, moveSegment, safeIterator } from "../state/search";
 */
 const SortableItem = SortableElement(({ value }) => {
   return (
-    <ListItem
-      onClick={() => {
-        console.log(value);
-      }}
-    >
-      <ListItemGraphic icon={<Icon size={56} name={value.format} />} />
-      <ListItemText>
-        <ListItemPrimaryText>{value.title}</ListItemPrimaryText>
-        <ListItemSecondaryText>{value.chapter_title}</ListItemSecondaryText>
-      </ListItemText>
-    </ListItem>
+    <SegmentConsumer>
+      {({ meta, setField }) => (
+        <ListItem
+          onClick={() => {
+            setField("id", value.id);
+            setField("title", value.title);
+            setField("description", value.description);
+            setField("intro", value.intro);
+            setField("outro", value.outro);
+            console.log(value);
+          }}
+        >
+          <ListItemGraphic icon={<Icon size={56} name={value.format} />} />
+          <ListItemText>
+            <ListItemPrimaryText>{value.title}</ListItemPrimaryText>
+            <ListItemSecondaryText>{value.work}</ListItemSecondaryText>
+          </ListItemText>
+        </ListItem>
+      )}
+    </SegmentConsumer>
   );
 });
 

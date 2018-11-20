@@ -24,7 +24,8 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
     "rmwc": "^3.0.9",
-    "sortablejs": "^1.6.1"
+    "sortablejs": "^1.6.1",
+    "uniqid": "^5.0.3"
   },
   "devDependencies": {
     "@oreillymedia/design-system": "^2.0.0",

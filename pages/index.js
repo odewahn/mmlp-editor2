@@ -53,7 +53,7 @@ export default connect(state => state)(
                 <VideoPlayer
                   targetId="kaltura-player"
                   referenceId={computeKalturaReferenceID(this.props.content)}
-                  session="djJ8MTkyNjA4MXys4Xm-byj22T3TWrlNtEEDvFwA4f3-vN_JshsnT2jBrEFLwOfNdbs8Ws5b8usK_r9qE9KQXG_6DOKCe3wf7jessF_Q7Wo3Ya7xojWlYad7Vg=="
+                  session={this.props.kalturaSession}
                 />
               ) : (
                 <div

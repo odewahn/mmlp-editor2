@@ -1,12 +1,15 @@
 import buildUrl from "build-url";
 import "isomorphic-unfetch";
 import { arrayMove } from "react-sortable-hoc";
+var uniqid = require("uniqid");
 
 /*********************************************************************
 ||  Define the initial state
 *********************************************************************/
 
 export const INITIAL_STATE = {
+  kalturaSession:
+    "djJ8MTkyNjA4MXwxBc9uwa4OJEYJOZDb4n_7D_TuHu28dZ-90R5Y7hoLXi6CnN-2mul1wYh43KxoWgCU7LkVyDPNJ-KdWZUiGRMYga3mPeSXkaoN9osWrDCaaA==",
   loggedIn: true,
   forceRefresh: 0.0,
   results: [],
@@ -90,7 +93,29 @@ export function clearErrorMessage() {
 export function addSegment(val) {
   return (dispatch, getState) => {
     const x = getState().segments;
-    x.push(val);
+    const newSegment = {
+      id: uniqid(),
+      natural_key: val.natural_key,
+      work: val.title,
+      title: val.chapter_title,
+      format: val.format,
+      linkId: "not-right-but-close-" + val.natural_key.join("-"),
+      description: "",
+      intro: "",
+      outro: "",
+      origItem: val
+    };
+    x.push(newSegment);
+    dispatch(setSearchField("segments", x));
+    dispatch(setSearchField("forceRefresh", Math.random()));
+  };
+}
+
+export function updateSegment(val) {
+  return (dispatch, getState) => {
+    const x = getState().segments;
+    var idx = x.findIndex(v => v.id == val.id);
+    x[idx] = Object.assign(x[idx], val);
     dispatch(setSearchField("segments", x));
     dispatch(setSearchField("forceRefresh", Math.random()));
   };
