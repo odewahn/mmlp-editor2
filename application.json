@@ -1,0 +1,27 @@
+{
+    "chassis_version": "latest",
+    "deploy_version": 2,
+    "description": "A multi-modal learning path editor",
+    "github_repo": "git@github.com:odewahn/mmlp-editor2.git",
+    "kubedir": "kube",
+    "name": "mmlp_editor2",
+    "namespace": "mmlp-editor2",
+    "new_relic_applications": {
+      "dev-seb": "",
+      "prod-sfo": ""
+    },
+    "ports": {
+      "dev": 3000
+    },
+    "slack_channels": [],
+    "slack_names_to_handles": {
+    },
+    "team": "Architecture",
+    "gke_enabled": true,
+    "jenkins": {
+      "stable_branch": "master",
+      "published_branches": ["master"],
+      "deploy_stable_to": ["dev-gke"],
+      "deploy_releases_to": []
+    }
+}

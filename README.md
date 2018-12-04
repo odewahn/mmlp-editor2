@@ -14,6 +14,15 @@
 
 # Installation
 
+## With Docker and Compose
+
+```
+docker-compose build
+docker-compose up web
+```
+
+## Local NodeJS installation
+
 Requires Node > 10
 
 ```

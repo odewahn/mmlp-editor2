@@ -1,0 +1,8 @@
+FROM gcr.io/common-build/orm-node-base:9.11
+ENV NODE_PATH /node_modules/
+COPY package.json /package.json
+RUN npm install
+RUN mkdir -p /orm/service/
+WORKDIR /orm/service/
+COPY . /orm/service/
+RUN /node_modules/.bin/next build

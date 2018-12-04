@@ -1,0 +1,33 @@
+networks:
+  default:
+    name: mmlp-editor2
+  platform:
+    external: true
+services:
+  manage:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: shell_plus
+    entrypoint: /usr/local/bin/python /orm/manage.py
+    env_file: env.local
+    networks:
+      default: {}
+      platform: {}
+    volumes:
+    - ~/.freeipa:/root/.freeipa
+    - ~/.chassis:/root/.chassis
+    - ./:/orm/service
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.nextjs
+    command: npm run dev
+    env_file: env.local
+    networks:
+      default: {}
+    ports:
+    - 3000:3000
+    volumes:
+    - ./:/orm/service
+version: '2.1'
