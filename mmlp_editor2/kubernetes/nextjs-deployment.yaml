@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: {{SERVICE_CONF.namespace}}
+  name: http
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: {{SERVICE_CONF.namespace}}
+        service: http
+    spec:
+      containers:
+      - name: nginx
+        imagePullPolicy: Always
+        image: gcr.io/common-build/{{SERVICE_CONF.name}}-nextjs:latest
+        command: {{kubernetes.command|as_repr}}
+        resources:
+          requests:
+            cpu: 150m
+            memory: 100Mi
+          limits:
+            cpu: 250m
+            memory: 150Mi
+        ports:
+        - name: http
+          containerPort: 3000
+        env:
+        - name: NEW_RELIC_ENABLED
+          value: "true"
+        - name: NEW_RELIC_NO_CONFIG_FILE
+          value: "true"
+        - name: NEW_RELIC_DISTRIBUTED_TRACING_ENABLED
+          value: "true"
+        - name: K8S_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: NODE_ENV
+          value: production
